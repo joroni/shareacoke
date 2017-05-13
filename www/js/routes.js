@@ -100,7 +100,7 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        if (sessionStorage.getItem('loggedin_id')) { $location.path('/profile'); } else { $location.path('/login'); }
+                        if (sessionStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
                     }
                 }
             }
@@ -109,6 +109,8 @@ angular.module('app.routes', [])
 
         }
     })
+
+
 
 
     .state('tab.profile', {

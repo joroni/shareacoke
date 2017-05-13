@@ -292,6 +292,9 @@ angular.module('app.controllers', [])
 })
 
 .controller('paymentCtrl', function($scope) {
+    $scope.payProcess = function() {
+        alert('Payment Connection Needed');
+    };
 
 })
 

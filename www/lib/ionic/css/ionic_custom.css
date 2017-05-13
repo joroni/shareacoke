@@ -13185,3 +13185,8 @@ a.dark {
 .title.title-center.header-item h1 img.branding {
     height: 20px;
 }
+
+.centered {
+    text-align: center;
+    width: 100%;
+}

@@ -34,7 +34,7 @@ angular.module('app.controllers', [])
     $scope.server_url = base_url;
 
     //put cart after menu
-    //var cart = sharedCartService.cart;
+    var cart = sharedCartService.cart;
 
 
 

@@ -1,4 +1,4 @@
-<ion-view id="brands" view-title="Brands">
+<ion-view id="homeHeader" view-title="Brands">
     <ion-nav-title>
         <div id="title" ng-hide="true">Share a Coke</div>
         <img src="img/logo.png" class="branding">
@@ -25,19 +25,19 @@
         </div>
         <ion-list ng-repeat="item in menu_items">
 
-            <ion-item class="item-thumbnail-center item-icon-rights" style="width: 50%; float:left;">
-                <div class="rows">
+            <ion-item class="item-thumbnail-left item-icon-right" style="width: 50%; float:left;">
+                <div class="row">
                     <img class='brand-thumbnail' ng-src="{{server_url+ '/img/brands/'+ item.p_image_id + '.png'}} " ng-click="showBrandInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price) " onerror="this.src=fallbackSrc" onabort="this.src=fallbackSrc">
 
                 </div>
-                <div class="rows">
+                <div class="row">
                     <p style="position:absolute;right:10px; top:40px; display: none; ">
                         <a ng-click="addToCart(item.p_id,item.p_image_id,item.p_name,item.p_price) " class="button button-balanced button-clear icon ion-android-cart "> </a>
                     </p>
 
                     <h2 ng-click="showBrandInfo(item.p_id,item.p_name,item.p_description,item.p_image_id,item.p_price) "> {{item.p_name}} </h2>
                     <p ng-click="showBrandInfo(item.p_id,item.p_name,item.p_description,item.p_image_id,item.p_price) "> {{item.p_flavor}}</p>
-                    <i class="icon ion-chevron-right icon-accessory hide"></i>
+                    <i class="icon ion-chevron-right icon-accessory "></i>
                 </div>
             </ion-item>
 

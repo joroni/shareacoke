@@ -2,37 +2,6 @@ angular.module('app.controllers', [])
 
 
 
-
-.controller('DashCtrls', function($scope) {})
-
-.controller('BrandCtrls', function($scope) {})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
-
-    $scope.chats = Chats.all();
-    $scope.remove = function(chat) {
-        Chats.remove(chat);
-    };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-    $scope.settings = {
-        enableFriends: true
-    };
-})
-
-
 .controller('DashCtrl', function($scope, $http, sharedCartService, sharedFilterService) {
 
 
@@ -45,16 +14,16 @@ angular.module('app.controllers', [])
 
     $scope.slide_items = [{
             "p_id": "1",
-            "p_name": "Beats Headphone",
-            "p_description": "White Bass 4 in 1 Channels",
+            "p_name": "New Chicken Maharaja",
+            "p_description": "brand Description",
             "p_image_id": "slide_1",
             "p_price": "183"
         },
 
         {
             "p_id": "2",
-            "p_name": "Apple Mac Book Air",
-            "p_description": "15-inch, i7 Intel Core, 16 GB RAM",
+            "p_name": "Big Spicy Chicken Wrap",
+            "p_description": "brand Description",
             "p_image_id": "slide_2",
             "p_price": "171"
         },
@@ -104,7 +73,7 @@ angular.module('app.controllers', [])
         sessionStorage.setItem('product_info_img', img);
         sessionStorage.setItem('product_info_name', name);
         sessionStorage.setItem('product_info_price', price);
-        window.location.href = "#/tab/productpage";
+        window.location.href = "#/tab/rewardpage";
     };
 
     //add to cart function
@@ -306,207 +275,16 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
-
-    $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
-    $scope.loggedin_id = sessionStorage.getItem('loggedin_id');
-    $scope.loggedin_phone = sessionStorage.getItem('loggedin_phone');
-    $scope.loggedin_address = sessionStorage.getItem('loggedin_address');
-    $scope.loggedin_pincode = sessionStorage.getItem('loggedin_pincode');
-
-
-    $scope.logout = function() {
-        delete sessionStorage.loggedin_name;
-        delete sessionStorage.loggedin_id;
-        delete sessionStorage.loggedin_phone;
-        delete sessionStorage.loggedin_address;
-        delete sessionStorage.loggedin_pincode;
-
-        /*** added */
-        delete localStorage.loggedin_name;
-        delete localStorage.loggedin_id;
-        delete localStorage.loggedin_phone;
-        delete localStorage.loggedin_address;
-        delete localStorage.loggedin_pincode;
-        /*** added */
-
-        console.log('Logoutctrl', sessionStorage.getItem('loggedin_id'));
-
-        $ionicHistory.nextViewOptions({
-            disableAnimate: true,
-            disableBack: true
-        });
-        $state.go('tab.login', {}, { location: "replace", reload: true });
-    };
-})
-
-.controller('myOrdersCtrl', function($scope) {
-
-})
-
-.controller('editProfileCtrl', function($scope) {
-
-})
-
-.controller('favoratesCtrl', function($scope) {
-
-})
-
 .controller('productPageCtrl', function($scope) {
 
     //onload event
     angular.element(document).ready(function() {
         $scope.id = sessionStorage.getItem('product_info_id');
         $scope.desc = sessionStorage.getItem('product_info_desc');
-        $scope.img = base_url + "/img/ads/" + sessionStorage.getItem('product_info_img') + ".jpg";
+        $scope.img = base_url + "/img/rewards/" + sessionStorage.getItem('product_info_img') + ".jpg";
         $scope.name = sessionStorage.getItem('product_info_name');
         $scope.price = sessionStorage.getItem('product_info_price');
     });
 
 
-})
-
-
-
-/***************** branding ******************/
-
-
-.controller('BrandCtrl', function($scope, $http, sharedCartService2, sharedFilterService2) {
-
-
-    $scope.server_url = base_url;
-
-    //put cart after menu
-    var cart2 = sharedCartService2.cart2;
-
-
-
-    $scope.slide_items = [{
-            "p_id": "4",
-            "p_name": "New Chicken Maharaja",
-            "p_flavor": "Product Flavor",
-            "p_image_id": "slide_4",
-            "p_price": "183"
-        },
-
-        {
-            "p_id": "5",
-            "p_name": "Big Spicy Chicken Wrap",
-            "p_flavor": "Product Flavor",
-            "p_image_id": "slide_5",
-            "p_price": "171"
-        },
-
-        {
-            "p_id": "6",
-            "p_name": "Big Spicy Paneer Wrap",
-            "p_flavor": "Product Flavor",
-            "p_image_id": "slide_6",
-            "p_price": "167"
-        }
-    ];
-
-
-
-    $scope.noMoreItemsAvailable = false; // lazy load list
-
-
-    $scope.server_url = base_url;
-
-    //loads the menu----onload event
-    $scope.$on('$stateChangeSuccess', function() {
-        $scope.loadMore(); //Added Infine Scroll
-    });
-
-    // Loadmore() called inorder to load the list 
-    $scope.loadMore = function() {
-
-        str = sharedFilterService2.getUrl();
-        $http.get(str).success(function(response) {
-            $scope.menu_items = response.records;
-            $scope.hasmore = response.has_more; //"has_more": 0	or number of items left
-            $scope.$broadcast('scroll.infiniteScrollComplete');
-        });
-
-        //more data can be loaded or not
-        if ($scope.hasmore == 0) {
-            $scope.noMoreItemsAvailable = true;
-        }
-    };
-
-
-    //show brand page
-    $scope.showBrandInfo = function(id, name, img, flavor, ean) {
-        sessionStorage.setItem('brand_info_id', id);
-        sessionStorage.setItem('brand_info_name', name);
-        sessionStorage.setItem('brand_info_img', img);
-        //   sessionStorage.setItem('brand_info_cate', cate);
-        sessionStorage.setItem('brand_info_flavor', flavor);
-        sessionStorage.setItem('brand_info_ean', ean);
-        window.location.href = "#/tab/brandpage";
-    };
-
-    //add to cart function
-    $scope.addToCart = function(id, name, img, flavor, ean) {
-        cart.add(id, name, img, cate, flavor, ean, 1);
-    };
-})
-
-
-.controller('brandPageCtrl', function($scope) {
-
-    //onload event
-    angular.element(document).ready(function() {
-        $scope.id = sessionStorage.getItem('brand_info_id');
-        $scope.name = sessionStorage.getItem('brand_info_name');
-        // $scope.cate = sessionStorage.getItem('brand_info_cate');
-        $scope.flavor = sessionStorage.getItem('brand_info_flavor');
-        $scope.img = base_url + "/img/brands/" + sessionStorage.getItem('brand_info_img') + ".png";
-        $scope.ean = sessionStorage.getItem('brand_info_ean');
-    });
-
-
-})
-
-
-
-.controller('filterByBrandCtrl', function($scope, sharedFilterService2) {
-
-    $scope.Categories = [
-        { id: 1, name: 'Cola' },
-        { id: 2, name: 'Vanilla' },
-        { id: 3, name: 'Cherry' }
-    ];
-
-    $scope.getCategory = function(cat_list) {
-        categoryAdded = cat_list;
-        var c_string = ""; // will hold the category as string
-
-        for (var i = 0; i < categoryAdded.length; i++) { c_string += (categoryAdded[i].id + "||"); }
-
-        c_string = c_string.substr(0, c_string.length - 2);
-        sharedFilterService2.category = c_string;
-        window.location.href = "#/tab/brands";
-    };
-
-
-})
-
-.controller('sortByBrandCtrl', function($scope, sharedFilterService2) {
-    $scope.sort = function(sort_by) {
-        sharedFilterService2.sort = sort_by;
-        console.log('sort', sort_by);
-        window.location.href = "#/tab/brands";
-    };
-})
-
-.controller('paymentCtrl', function($scope) {
-    $scope.payProcess = function() {
-        alert('Payment Connection Needed');
-    };
-
 });
-
-
-
-/** branding */

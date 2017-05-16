@@ -124,7 +124,7 @@ angular.module('app.services', [])
 .factory('sharedFilterService', [function() {
 
     var obj = {};
-    obj.str = base_url + '/' + "food_menu.php?till=";
+    obj.str = base_url + '/' + "rewards.php?till=";
     obj.sort = "";
     obj.search = "";
     obj.category = "";
@@ -136,7 +136,7 @@ angular.module('app.services', [])
 
         obj.till = obj.till + 5;
 
-        obj.str = base_url + '/' + "food_menu.php?till=" + obj.till; // pass the value to url
+        obj.str = base_url + '/' + "rewards.php?till=" + obj.till; // pass the value to url
 
         if (obj.sort != "" && obj.category != "") {
             obj.str = obj.str + "&category=" + obj.category + "&sort=" + obj.sort;

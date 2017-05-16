@@ -13189,6 +13189,10 @@ a.dark {
     height: 20px;
 }
 
+img.branding {
+    height: 20px;
+}
+
 .centered {
     text-align: center;
     width: 100%;
@@ -13231,4 +13235,28 @@ a.dark {
 
 h2.ng-binding {
     text-transform: capitalize;
+}
+
+.brand-thumbnail {
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+#brands .brand-thumbnail {
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+#brands .item {
+    border: none;
+}
+
+.rows {
+    text-align: center;
+}
+
+.button-pink {
+    color: #DC143C;
 }

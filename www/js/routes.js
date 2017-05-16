@@ -28,6 +28,9 @@ angular.module('app.routes', [])
     })
 
 
+
+
+
     .state('tab.cart', {
         url: '/cart',
         views: {
@@ -37,6 +40,19 @@ angular.module('app.routes', [])
             }
         }
     })
+
+
+
+    .state('tab.snapshot', {
+        url: '/snapshot',
+        views: {
+            'tab-snapshot': {
+                templateUrl: 'templates/tab-snapshot.html'
+                    // controller: 'cartCtrl'
+            }
+        }
+    })
+
 
 
 

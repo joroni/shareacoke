@@ -1,4 +1,4 @@
-<ion-view view-title="<h1></h1>">
+<ion-view view-title="Rewards">
     <ion-content>
 
 
@@ -9,7 +9,7 @@
             <!-- width: 100% height 50% to fill the slidder image according to the layout -->
             <ion-slide class="swiper-slide swiper-slide-active" style="width:100%; height: 50%; " ng-repeat="slide in slide_items">
                 <div>
-                    <img ng-src="{{server_url+'/img/products/'+ slide.p_image_id +'.jpg'}}" ng-click="showProductInfo(slide.p_id,slide.p_description,slide.p_image_id,slide.p_name,slide.p_price)">
+                    <img ng-src="{{server_url+'/img/ads/'+ slide.p_image_id +'.jpg'}}" ng-click="showProductInfo(slide.p_id,slide.p_description,slide.p_image_id,slide.p_name,slide.p_price)">
                 </div>
             </ion-slide>
 
@@ -22,14 +22,14 @@
         <ion-list ng-repeat="item in menu_items">
 
             <ion-item class="item-thumbnail-left">
-                <img ng-src="{{server_url+'/img/products/'+ item.p_image_id +'.jpg'}}" ng-click="showProductInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price)">
+                <img class="brand-thumbnail" ng-src="{{server_url+'/img/rewards/'+ item.p_image_id +'.jpg'}}" ng-click="showProductInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price)">
 
                 <p style="position:absolute;right:10px; top:40px;">
-                    <a ng-click="addToCart(item.p_id,item.p_image_id,item.p_name,item.p_price)" class="button  button-balanced button-clear   icon ion-android-cart"> </a>
+                    <a ng-click="addToCart(item.p_id,item.p_image_id,item.p_name,item.p_price)" class="button  button-balanced button-clear icon ion-ribbon-b"> </a>
                 </p>
 
                 <h2 ng-click="showProductInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price)"> {{item.p_name}} </h2>
-                <p ng-click="showProductInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price)">Price: &#8377; {{item.p_price}}</p>
+                <p ng-click="showProductInfo(item.p_id,item.p_description,item.p_image_id,item.p_name,item.p_price)">Points: {{item.p_price}}</p>
             </ion-item>
 
 

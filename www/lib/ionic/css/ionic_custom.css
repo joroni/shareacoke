@@ -5075,9 +5075,11 @@ a.subdued:last-child {
 }
 
 .bar.bar-stable {
-    border-color: #b2b2b2;
-    background-color: #f8f8f8;
-    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    /*   border-color: #b2b2b2;*/
+    border-color: transparent;
+    background: #fff;
+    /*background-color: #f8f8f8;
+    background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);*/
     color: #d10000;
 }
 

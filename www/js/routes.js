@@ -227,13 +227,66 @@ angular.module('app.routes', [])
             }
         }
 
+    })
+
+
+    /** branding */
+
+
+    .state('tab.brands', {
+        url: '/brands',
+        views: {
+            'tab-brands': {
+                templateUrl: 'templates/tab-brands.html',
+                controller: 'BrandCtrl'
+            }
+        }
+    })
+
+
+    .state('tab.filterbyBrand', {
+        url: '/filterbyBrand',
+        views: {
+            'tab-brands': {
+                templateUrl: 'templates/filterbyBrand.html',
+                controller: 'filterByBrandCtrl'
+            }
+        }
+
+    })
+
+
+
+
+
+
+
+
+    .state('tab.sortbyBrand', {
+        url: '/sortbyBrand',
+        views: {
+            'tab-brands': {
+                templateUrl: 'templates/sortbyBrand.html',
+                controller: 'sortByBrandCtrl'
+            }
+        }
+
+    })
+
+
+    .state('tab.brandpage', {
+        url: '/brandpage',
+        views: {
+            'tab-brands': {
+                templateUrl: 'templates/brandpage.html',
+                controller: 'brandPageCtrl'
+            }
+        }
+
     });
 
-
-
-
-
+    /** branding */
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dash');
+    $urlRouterProvider.otherwise('/tab/brands');
 
 });

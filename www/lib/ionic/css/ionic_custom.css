@@ -16,7 +16,7 @@
 
 
 /*!
-  Ionicons, v2.0.1
+  Ion©s, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
   https://twitter.com/benjsperry  https://twitter.com/ionicframework
   MIT License: https://github.com/driftyco/ionicons
@@ -11475,8 +11475,10 @@ progress {
 
 .button.button-block,
 .button.button-full {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    /*  margin-top: 10px;
+    margin-bottom: 10px;*/
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .button.button-light {
@@ -11607,8 +11609,8 @@ progress {
 
 .button.button-calm {
     border-color: transparent;
-    background-color: #11c1f3;
-    color: #fff;
+    background-color: #eee;
+    color: #d10000;
 }
 
 .button.button-calm:hover {
@@ -11618,8 +11620,9 @@ progress {
 
 .button.button-calm.active,
 .button.button-calm.activated {
-    border-color: #a2a2a2;
-    background-color: #0a9dc7;
+    border-color: #d10000;
+    color: #fff;
+    background-color: #d10000;
 }
 
 .button.button-calm.button-clear {
@@ -12776,7 +12779,7 @@ a.positive {
 
 .calm,
 a.calm {
-    color: #11c1f3;
+    color: #d10000;
 }
 
 .calm-bg {
@@ -13177,7 +13180,7 @@ a.dark {
     background: url(../img/logo.png) no-repeat;
     background-position: center center;
     background-size: contain;
-    height: 22px;
+    height: 20px;
     width: auto;
     margin-top: 15px;
 }
@@ -13189,4 +13192,43 @@ a.dark {
 .centered {
     text-align: center;
     width: 100%;
+}
+
+.list.side-card {
+    float: left;
+    width: 50%;
+}
+
+.item-side>img {
+    float: left;
+}
+
+.item-side .item.item-divider {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    min-height: 30px;
+    background: none;
+    color: #222;
+    font-weight: 500;
+    border: none;
+}
+
+.item-side .item.item-body {
+    overflow: auto;
+    padding: 0 16px 24px;
+    text-overflow: inherit;
+    white-space: normal;
+    border: none;
+}
+
+.item-side .item.item-body p {
+    color: #d10000;
+}
+
+.item-side .item.item-body label {
+    color: #888;
+}
+
+h2.ng-binding {
+    text-transform: capitalize;
 }

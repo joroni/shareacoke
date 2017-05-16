@@ -1,4 +1,5 @@
 var base_url = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side";
+//var base_url = "http://localhost/ionic_shopping/server_side";
 
 // Ionic Starter App
 

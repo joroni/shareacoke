@@ -358,7 +358,7 @@ angular.module('app.controllers', [])
     angular.element(document).ready(function() {
         $scope.id = sessionStorage.getItem('product_info_id');
         $scope.desc = sessionStorage.getItem('product_info_desc');
-        $scope.img = base_url + "/img/ads/" + sessionStorage.getItem('product_info_img') + ".jpg";
+        $scope.img = base_url + "/img/rewards/" + sessionStorage.getItem('product_info_img') + ".jpg";
         $scope.name = sessionStorage.getItem('product_info_name');
         $scope.price = sessionStorage.getItem('product_info_price');
     });

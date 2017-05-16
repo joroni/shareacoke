@@ -1,14 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.cocacola.sharecoke" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Share a Coke</name>
+    <name>aShare a Coke</name>
     <description>
-        An Ionic Framework and Cordova project.
+        My Coke App Project 03
     </description>
-    <author email="you@example.com" href="http://cocacola.com/">
-      Your Name Here
+    <author email="niconi@coca-cola.com" href="http://coca-cola.com/">
+      John Raymund Niconi
     </author>
+    <icon src="www/res/icon.png" />
+    <splash src="www/res/splash.png" />
     <content src="index.html" />
     <access origin="*" />
+    <preference name="Orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -25,4 +28,5 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name="com.ezartech.ezar.videooverlay" spec="~0.2.11" />
 </widget>

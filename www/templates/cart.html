@@ -14,15 +14,15 @@
                     <img ng-src="{{server_url+'/img/rewards/'+ item.cart_item_image +'.jpg'}}" width="100%" height="auto" style="width: 100%; height: auto;">
                     <form class="list"></form>
                     <div>
-                        <p>{{item.cart_item_qty}} x &#8377; {{item.cart_item_price}} =
-                            <strong> &#8377; {{ item.cart_item_qty *  item.cart_item_price  }}</strong>
+                        <p>{{item.cart_item_qty}} x <i class="ion-ribbon-b button-yellow icon-small"></i>{{item.cart_item_price}} =
+                            <strong> <i class="ion-ribbon-b button-yellow icon-small"></i>{{ item.cart_item_qty *  item.cart_item_price  }}</strong>
                         </p>
                     </div>
                     <div class="button-bar">
-                        <button ng-click="removeFromCart(item.cart_item_id)" class="button button-assertive button-block button-small icon ion-android-delete"></button>
-                        <button class="button button-stable button-clear button-block button-small icon ion-plus" ng-click="inc(item.cart_item_id)"></button>
-                        <button class="button button-stable button-clear button-block button-small">{{item.cart_item_qty}}</button>
-                        <button class="button button-stable button-clear button-block  icon ion-minus" ng-click="dec(item.cart_item_id)"></button>
+                        <button ng-click="removeFromCart(item.cart_item_id)" class="button button-assertive button-block button-small icon ion-ios-trash-outline"></button>
+                        <button class="button button-stable button-pink button-block button-small icon ion-ios-plus" ng-click="inc(item.cart_item_id)"></button>
+                        <button class="button button-stable button-pink button-block button-small">{{item.cart_item_qty}}</button>
+                        <button class="button button-stable button-pink button-block  button-small icon ion-minus-circled" ng-click="dec(item.cart_item_id)"></button>
                     </div>
                 </div>
             </div>

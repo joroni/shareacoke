@@ -13283,5 +13283,6 @@ h2.ng-binding {
 }
 
 .button-yellow {
-    color: #FFD700;
+    color: #FF8C00;
+    background-color: transparent;
 }

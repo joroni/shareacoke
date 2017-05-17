@@ -13228,6 +13228,7 @@ img.branding {
 
 .item-side>img {
     float: left;
+    margin-right: 10px;
 }
 
 .item-side .item.item-divider {
@@ -13265,7 +13266,8 @@ h2.ng-binding {
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
-#brands .brand-thumbnail {
+#brands .brand-thumbnail,
+.brand-preview {
     width: 120px;
     height: 120px;
     border-radius: 4px;

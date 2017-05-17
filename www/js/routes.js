@@ -42,18 +42,18 @@ angular.module('app.routes', [])
     })
 
 
-
-    .state('tab.snapshot', {
-        url: '/snapshot',
-        views: {
-            'tab-snapshot': {
-                templateUrl: 'templates/tab-snapshot.html'
-                    // controller: 'cartCtrl'
+    /*
+        .state('tab.snapshot', {
+            url: '/snapshot',
+            views: {
+                'tab-snapshot': {
+                    templateUrl: 'templates/tab-snapshot.html'
+                        // controller: 'cartCtrl'
+                }
             }
-        }
-    })
+        })
 
-
+    */
 
 
 

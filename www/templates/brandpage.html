@@ -1,12 +1,14 @@
 <ion-view title="Brand">
     <ion-content padding="'true'" class="has-header">
-        <div class="item-side" style="padding:10px;"><img ng-src="{{img}}" width="125px" height="auto" style="width: 125px; height: auto;" onerror="this.src=fallbackSrc" onabort="this.src=fallbackSrc">
-            <div class="list side-card" ng-hide="">
+        <div class="item-side" style="padding:10px;"><img ng-src="{{img}}" width="125px" height="auto" class="brand-preview" style="width: 125px; height: auto;" onerror="this.src=fallbackSrc" onabort="this.src=fallbackSrc">
+            <div class="list side-card">
 
                 <div class="item item-body">
                     <div>
 
-
+                        <p><label>Brand:</label><br>{{name}}</p>
+                        <!--  <p><label>Category:</label> {{cate}}</p>-->
+                        <p><label>Flavor:</label><br>{{flavor}}</p>
 
                     </div>
                 </div>
@@ -22,12 +24,12 @@
             <div class="item item-body">
                 <div>
                     <p><label>Brand:</label> {{name}}</p>
+                    <!--  <p><label>Category:</label> {{cate}}</p>-->
                     <p><label>Flavor:</label> {{flavor}}</p>
-                    <p><label>Category:</label> {{cate}}</p>
                     <p><label>EAN:</label> {{ean}}</p>
-                    <p><label>IMG:</label> {{img}}</p>
-                    <p>Flavor: </p>
-                    <p>EAN: </p>
+
+                    <!--   <p>Flavor: </p>
+                    <p>EAN: </p>-->
 
                 </div>
             </div>

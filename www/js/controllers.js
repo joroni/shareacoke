@@ -48,7 +48,7 @@ angular.module('app.controllers', [])
             "p_name": "Beats Headphone",
             "p_description": "White Bass 4 in 1 Channels",
             "p_image_id": "slide_1",
-            "p_price": "183"
+            "p_ean": "183"
         },
 
         {
@@ -56,7 +56,7 @@ angular.module('app.controllers', [])
             "p_name": "Apple Mac Book Air",
             "p_description": "15-inch, i7 Intel Core, 16 GB RAM",
             "p_image_id": "slide_2",
-            "p_price": "171"
+            "p_ean": "171"
         },
 
         {
@@ -64,7 +64,7 @@ angular.module('app.controllers', [])
             "p_name": "Big Spicy Paneer Wrap",
             "p_description": "brand Description",
             "p_image_id": "slide_3",
-            "p_price": "167"
+            "p_ean": "167"
         }
     ];
 
@@ -383,26 +383,30 @@ angular.module('app.controllers', [])
 
     $scope.slide_items = [{
             "p_id": "4",
-            "p_name": "New Chicken Maharaja",
-            "p_flavor": "Product Flavor",
+            "p_name": "Cappy Pulpy",
+            "p_category": "4",
+            "p_flavor": "Orange",
+
             "p_image_id": "slide_4",
-            "p_price": "183"
+            "p_ean": "5449000147042"
         },
 
         {
             "p_id": "5",
             "p_name": "Big Spicy Chicken Wrap",
             "p_flavor": "Product Flavor",
+            "p_category": "0",
             "p_image_id": "slide_5",
-            "p_price": "171"
+            "p_ean": "171"
         },
 
         {
             "p_id": "6",
             "p_name": "Big Spicy Paneer Wrap",
             "p_flavor": "Product Flavor",
+            "p_category": "0",
             "p_image_id": "slide_6",
-            "p_price": "167"
+            "p_ean": "167"
         }
     ];
 
@@ -434,20 +438,19 @@ angular.module('app.controllers', [])
         }
     };
 
-
     //show brand page
-    $scope.showBrandInfo = function(id, name, img, flavor, ean) {
+    $scope.showBrandInfo = function(id, flavor, img, name, cate, ean) {
         sessionStorage.setItem('brand_info_id', id);
         sessionStorage.setItem('brand_info_name', name);
-        sessionStorage.setItem('brand_info_img', img);
-        //   sessionStorage.setItem('brand_info_cate', cate);
+        sessionStorage.setItem('brand_info_cate', cate);
         sessionStorage.setItem('brand_info_flavor', flavor);
+        sessionStorage.setItem('brand_info_img', img);
         sessionStorage.setItem('brand_info_ean', ean);
         window.location.href = "#/tab/brandpage";
     };
 
     //add to cart function
-    $scope.addToCart = function(id, name, img, flavor, ean) {
+    $scope.addToCart = function(id, name, img, cate, flavor, ean) {
         cart.add(id, name, img, cate, flavor, ean, 1);
     };
 })
@@ -459,7 +462,7 @@ angular.module('app.controllers', [])
     angular.element(document).ready(function() {
         $scope.id = sessionStorage.getItem('brand_info_id');
         $scope.name = sessionStorage.getItem('brand_info_name');
-        // $scope.cate = sessionStorage.getItem('brand_info_cate');
+        $scope.cate = sessionStorage.getItem('brand_info_cate');
         $scope.flavor = sessionStorage.getItem('brand_info_flavor');
         $scope.img = base_url + "/img/brands/" + sessionStorage.getItem('brand_info_img') + ".png";
         $scope.ean = sessionStorage.getItem('brand_info_ean');
@@ -473,9 +476,9 @@ angular.module('app.controllers', [])
 .controller('filterByBrandCtrl', function($scope, sharedFilterService2) {
 
     $scope.Categories = [
-        { id: 1, name: 'Cola' },
-        { id: 2, name: 'Vanilla' },
-        { id: 3, name: 'Cherry' }
+        { id: 6, name: 'Coca-Cola' },
+        { id: 1, name: 'Bonaqua' },
+        { id: 14, name: 'Sprite' }
     ];
 
     $scope.getCategory = function(cat_list) {

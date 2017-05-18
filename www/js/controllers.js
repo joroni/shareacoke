@@ -161,11 +161,11 @@ angular.module('app.controllers', [])
 .controller('checkOutCtrl', function($scope) {
     $scope.loggedin = function() {
         if (sessionStorage.getItem('loggedin_id') == null) { return 1; } else {
-            $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
-            $scope.loggedin_id = sessionStorage.getItem('loggedin_id');
-            $scope.loggedin_phone = sessionStorage.getItem('loggedin_phone');
-            $scope.loggedin_address = sessionStorage.getItem('loggedin_address');
-            $scope.loggedin_pincode = sessionStorage.getItem('loggedin_pincode');
+            $scope.loggedin_name = localStorage.getItem('loggedin_name');
+            $scope.loggedin_id = localStorage.getItem('loggedin_id');
+            $scope.loggedin_phone = localStorage.getItem('loggedin_phone');
+            $scope.loggedin_address = localStorage.getItem('loggedin_address');
+            $scope.loggedin_pincode = localStorage.getItem('loggedin_pincode');
             return 0;
         }
     };
@@ -188,11 +188,11 @@ angular.module('app.controllers', [])
         $http.get(str)
             .success(function(response) {
                 $scope.user_details = response.records;
-                sessionStorage.setItem('loggedin_name', $scope.user_details.u_name);
-                sessionStorage.setItem('loggedin_id', $scope.user_details.u_id);
-                sessionStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
-                sessionStorage.setItem('loggedin_address', $scope.user_details.u_address);
-                sessionStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+                localStorage.setItem('loggedin_name', $scope.user_details.u_name);
+                localStorage.setItem('loggedin_id', $scope.user_details.u_id);
+                localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
+                localStorage.setItem('loggedin_address', $scope.user_details.u_address);
+                localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
                 /** custom */
                 localStorage.setItem('loggedin_name', $scope.user_details.u_name);
                 localStorage.setItem('loggedin_id', $scope.user_details.u_id);
@@ -206,7 +206,7 @@ angular.module('app.controllers', [])
                     disableBack: true
                 });
                 lastView = $ionicHistory.backView();
-                console.log('Last View', lastView);
+                //console.log('Last View', lastView);
                 //BUG to be fixed soon
                 if (lastView.stateId == "checkOut") { $state.go('tab.checkOut', {}, { location: "replace", reload: true }); } else {
                     $state.go('tab.profile', {}, { location: "replace", reload: true });
@@ -294,7 +294,7 @@ angular.module('app.controllers', [])
 .controller('sortByCtrl', function($scope, sharedFilterService) {
     $scope.sort = function(sort_by) {
         sharedFilterService.sort = sort_by;
-        console.log('sort', sort_by);
+        //console.log('sort', sort_by);
         window.location.href = "#/tab/dash";
     };
 })
@@ -308,19 +308,21 @@ angular.module('app.controllers', [])
 
 .controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
 
-    $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
-    $scope.loggedin_id = sessionStorage.getItem('loggedin_id');
-    $scope.loggedin_phone = sessionStorage.getItem('loggedin_phone');
-    $scope.loggedin_address = sessionStorage.getItem('loggedin_address');
-    $scope.loggedin_pincode = sessionStorage.getItem('loggedin_pincode');
+    $scope.loggedin_name = localStorage.getItem('loggedin_name');
+    $scope.loggedin_id = localStorage.getItem('loggedin_id');
+    $scope.loggedin_phone = localStorage.getItem('loggedin_phone');
+    $scope.loggedin_address = localStorage.getItem('loggedin_address');
+    $scope.loggedin_pincode = localStorage.getItem('loggedin_pincode');
 
+
+    var Loggedin_ID = localStorage.getItem('loggedin_id');
 
     $scope.logout = function() {
-        delete sessionStorage.loggedin_name;
-        delete sessionStorage.loggedin_id;
-        delete sessionStorage.loggedin_phone;
-        delete sessionStorage.loggedin_address;
-        delete sessionStorage.loggedin_pincode;
+        delete localStorage.loggedin_name;
+        delete localStorage.loggedin_id;
+        delete localStorage.loggedin_phone;
+        delete localStorage.loggedin_address;
+        delete localStorage.loggedin_pincode;
 
         /*** added */
         delete localStorage.loggedin_name;
@@ -330,7 +332,7 @@ angular.module('app.controllers', [])
         delete localStorage.loggedin_pincode;
         /*** added */
 
-        console.log('Logoutctrl', sessionStorage.getItem('loggedin_id'));
+        console.log('Logoutctrl', Loggedin_ID);
 
         $ionicHistory.nextViewOptions({
             disableAnimate: true,
@@ -498,7 +500,7 @@ angular.module('app.controllers', [])
 .controller('sortByBrandCtrl', function($scope, sharedFilterService2) {
     $scope.sort = function(sort_by) {
         sharedFilterService2.sort = sort_by;
-        console.log('sort', sort_by);
+        //  console.log('sort', sort_by);
         window.location.href = "#/tab/brands";
     };
 })

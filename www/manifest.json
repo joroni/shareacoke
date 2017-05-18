@@ -1,13 +1,11 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
-  "start_url": "index.html",
-  "display": "standalone",
-  "icons": [{
-    "src": "assets/imgs/logo.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }],
-  "background_color": "#4e8ef7",
-  "theme_color": "#4e8ef7"
+    "name": "Share A Coke",
+    "short_name": "My Coke App 01",
+    "start_url": "index.html",
+    "display": "standalone",
+    "icons": [{
+        "src": "res/icon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+    }]
 }

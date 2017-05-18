@@ -13290,3 +13290,7 @@ h2.ng-binding {
     color: #FFD700;
     background-color: transparent;
 }
+
+p.ng-binding {
+    text-transform: capitalize;
+}

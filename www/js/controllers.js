@@ -1,4 +1,4 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngOpenFB'])
 
 
 
@@ -183,8 +183,24 @@ angular.module('app.controllers', [])
     //$scope.total = 10; 
 })
 
-.controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory) {
+.controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout, ngFB) {
     $scope.user = {};
+
+
+
+
+    $scope.fbLogin = function() {
+        console.log('Facebook login started');
+        ngFB.login({ scope: 'email,read_stream,publish_actions' }).then(
+            function(response) {
+                if (response.status === 'connected') {
+                    console.log('Facebook login succeeded');
+                    $scope.closeLogin();
+                } else {
+                    alert('Facebook login failed');
+                }
+            });
+    }
 
     $scope.login = function() {
         str = base_url + '/' + "user-details.php?e=" + $scope.user.email + "&p=" + $scope.user.password;
@@ -217,6 +233,8 @@ angular.module('app.controllers', [])
                     $state.go('tab.checkOut', {}, { location: "replace", reload: true });
                 } else {
                     $state.go('tab.profile', {}, { location: "replace", reload: true });
+
+                    window.location.href = "#/tab/profile";
                 }
 
 
@@ -515,6 +533,9 @@ angular.module('app.controllers', [])
 
 
 })
+
+
+
 
 .controller('sortByBrandCtrl', function($scope, sharedFilterService2) {
     $scope.sort = function(sort_by) {

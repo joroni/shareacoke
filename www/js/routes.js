@@ -144,6 +144,39 @@ angular.module('app.routes', [])
 
 
 
+    .state('tab.login-form', {
+        url: '/login-form',
+        views: {
+            'tab-login': {
+                templateUrl: 'templates/tab-login-form.html',
+                controller: 'loginCtrl',
+                resolve: {
+                    "check": function($location) {
+                        var LoginCtrl = localStorage.getItem('loggedin_id');
+                        //  console.log('LoginCtrl', LoginCtrl);
+                        if (LoginCtrl != null) {
+                            console.log('LoginCtrl', LoginCtrl);
+                            //$location.path('#/tab/profile');
+                            window.location.href = "#/tab/profile";
+                            // $state.go('tab.profile', {}, { location: "replace", reload: false });
+                        } else {
+                            console.log('LoginCtrl', 'None');
+                            //  $state.go('tab.login', {}, { location: "replace", reload: true });
+                            //  $location.path('#/tab/login');
+                            window.location.href = "#/tab/login";
+                        }
+
+
+
+                        //   if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
+                    }
+                }
+            }
+
+
+
+        }
+    })
 
     .state('tab.profile', {
         url: '/profile',

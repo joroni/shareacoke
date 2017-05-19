@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['ngOpenFB'])
+angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
 
 
@@ -179,14 +179,15 @@ angular.module('app.controllers', ['ngOpenFB'])
 
 })
 
+
+
+
 .controller('indexCtrl', function($scope, sharedCartService) {
     //$scope.total = 10; 
 })
 
 .controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout, ngFB) {
     $scope.user = {};
-
-
 
 
     $scope.fbLogin = function() {
@@ -201,6 +202,7 @@ angular.module('app.controllers', ['ngOpenFB'])
                 }
             });
     }
+
 
     $scope.login = function() {
         str = base_url + '/' + "user-details.php?e=" + $scope.user.email + "&p=" + $scope.user.password;
@@ -333,8 +335,17 @@ angular.module('app.controllers', ['ngOpenFB'])
 
 })
 
-.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
-
+.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state, ngFB) {
+    ngFB.api({
+        path: '/me',
+        params: { fields: 'id,name' }
+    }).then(
+        function(user) {
+            $scope.user = user;
+        },
+        function(error) {
+            alert('Facebook error: ' + error.error_description);
+        });
     $scope.loggedin_name = localStorage.getItem('loggedin_name');
     $scope.loggedin_id = localStorage.getItem('loggedin_id');
     $scope.loggedin_phone = localStorage.getItem('loggedin_phone');

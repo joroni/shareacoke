@@ -182,162 +182,162 @@ angular.module('app.controllers', ['app.profiles'])
 
 .config(function($stateProvider, FB_APP_ID) {
 
-    openFB.init({ appId: FB_APP_ID });
+        openFB.init({ appId: FB_APP_ID });
 
 
-})
-
-.controller('ProfileFBCtrl', function($scope) {
-
-
-    openFB.api({
-
-        path: '/me',
-        params: { fields: 'id,name' },
-        success: function(user) {
-            $scope.$apply(function() {
-                // initial state is visible
+    })
+    /*
+    .controller('ProfileFBCtrl', function($scope) {
 
 
-                $scope.user = user;
-                console.log(user.id)
-                console.log(user.name)
-                localStorage.setItem('authenticated', 1);
+        openFB.api({
+
+            path: '/me',
+            params: { fields: 'id,name' },
+            success: function(user) {
+                $scope.$apply(function() {
+                    // initial state is visible
 
 
-            });
-        },
-        error: function(error) {
+                    $scope.user = user;
+                    console.log(user.id)
+                    console.log(user.name)
+                    localStorage.setItem('authenticated', 1);
 
 
-            alert('Error connecting to Facebook. Did you log in?');
-            localStorage.setItem('authenticated', 0);
+                });
+            },
+            error: function(error) {
+
+
+                alert('Error connecting to Facebook. Did you log in?');
+                localStorage.setItem('authenticated', 0);
+
+
+            }
+        });
+
+    })
+
+
+    */
+    .controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout) {
+        $scope.user = {};
+
+
+
+
+        // Form data for the login modal
+        $scope.loginData = {};
+
+        // Create the login modal that we will use later FB ****************
+        $ionicModal.fromTemplateUrl('templates/tab-login.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+        // Triggered in the login modal to close it
+        $scope.closeLogin = function() {
+                $scope.modal.hide();
+            },
+
+            // Open the login modal
+            $scope.login = function() {
+                $scope.modal.show();
+            };
+
+        // Perform the login action when the user submits the login form
+        $scope.doLogin = function() {
+            console.log('Login', $scope.loginData);
+            alert("Only the Facebook login is implemented in this sample app.");
+            $scope.closeLogin();
+        };
+
+
+
+
+        $scope.fbLogout = function() {
+            openFB.logout(function(response) {
+                // user is now logged out
+                localStorage.setItem('authenticated', 0);
+                alert('You are now logged out.');
+
+            })
+        }
+
+        $scope.fbLogin = function() {
+            openFB.login(
+                function(response) {
+                    if (response.status === 'connected') {
+                        console.log('Facebook login succeeded');
+                        localStorage.setItem('authenticated', 1);
+                        $scope.closeLogin();
+                        $state.go('tab.fbprofile');
+                        // window.location.href = "#/tab/fbprofile";
+                    } else {
+                        alert('Facebook login failed');
+                        localStorage.setItem('authenticated', 0);
+
+
+
+                    }
+
+
+                }, { scope: 'email,publish_actions' });
 
 
         }
-    });
 
-})
-
-
-
-.controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout) {
-    $scope.user = {};
+        /* FB **************** */
 
 
 
 
-    // Form data for the login modal
-    $scope.loginData = {};
 
-    // Create the login modal that we will use later FB ****************
-    $ionicModal.fromTemplateUrl('templates/tab-login.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.modal = modal;
-    });
-
-    // Triggered in the login modal to close it
-    $scope.closeLogin = function() {
-            $scope.modal.hide();
-        },
-
-        // Open the login modal
         $scope.login = function() {
-            $scope.modal.show();
+            str = base_url + '/' + "user-details.php?e=" + $scope.user.email + "&p=" + $scope.user.password;
+
+
+            $http.get(str)
+                .success(function(response) {
+                    $scope.user_details = response.records;
+                    sessionStorage.setItem('loggedin_name', $scope.user_details.u_name);
+                    sessionStorage.setItem('loggedin_id', $scope.user_details.u_id);
+                    sessionStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
+                    sessionStorage.setItem('loggedin_address', $scope.user_details.u_address);
+                    sessionStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+                    /** custom */
+                    localStorage.setItem('loggedin_name', $scope.user_details.u_name);
+                    localStorage.setItem('loggedin_id', $scope.user_details.u_id);
+                    localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
+                    localStorage.setItem('loggedin_address', $scope.user_details.u_address);
+                    localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+                    /** custom */
+
+                    $ionicHistory.nextViewOptions({
+                        disableAnimate: true,
+                        disableBack: true
+                    });
+                    lastView = $ionicHistory.backView();
+                    console.log('Last View', lastView);
+                    //BUG to be fixed soon
+                    if (lastView.stateId == "checkOut") { $state.go('tab.checkOut', {}, { location: "replace", reload: true }); } else {
+                        $state.go('tab.profile', {}, { location: "replace", reload: true });
+                    }
+
+
+
+
+                }).error(function() {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Login failed!',
+                        template: 'Please check your credentials!'
+                    });
+                });
         };
 
-    // Perform the login action when the user submits the login form
-    $scope.doLogin = function() {
-        console.log('Login', $scope.loginData);
-        alert("Only the Facebook login is implemented in this sample app.");
-        $scope.closeLogin();
-    };
-
-
-
-
-    $scope.fbLogout = function() {
-        openFB.logout(function(response) {
-            // user is now logged out
-            localStorage.setItem('authenticated', 0);
-            alert('You are now logged out.');
-
-        })
-    }
-
-    $scope.fbLogin = function() {
-        openFB.login(
-            function(response) {
-                if (response.status === 'connected') {
-                    console.log('Facebook login succeeded');
-                    localStorage.setItem('authenticated', 1);
-                    $scope.closeLogin();
-                    $state.go('tab.fbprofile');
-                    // window.location.href = "#/tab/fbprofile";
-                } else {
-                    alert('Facebook login failed');
-                    localStorage.setItem('authenticated', 0);
-
-
-
-                }
-
-
-            }, { scope: 'email,publish_actions' });
-
-
-    }
-
-    /* FB **************** */
-
-
-
-
-
-    $scope.login = function() {
-        str = base_url + '/' + "user-details.php?e=" + $scope.user.email + "&p=" + $scope.user.password;
-
-
-        $http.get(str)
-            .success(function(response) {
-                $scope.user_details = response.records;
-                sessionStorage.setItem('loggedin_name', $scope.user_details.u_name);
-                sessionStorage.setItem('loggedin_id', $scope.user_details.u_id);
-                sessionStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
-                sessionStorage.setItem('loggedin_address', $scope.user_details.u_address);
-                sessionStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
-                /** custom */
-                localStorage.setItem('loggedin_name', $scope.user_details.u_name);
-                localStorage.setItem('loggedin_id', $scope.user_details.u_id);
-                localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
-                localStorage.setItem('loggedin_address', $scope.user_details.u_address);
-                localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
-                /** custom */
-
-                $ionicHistory.nextViewOptions({
-                    disableAnimate: true,
-                    disableBack: true
-                });
-                lastView = $ionicHistory.backView();
-                console.log('Last View', lastView);
-                //BUG to be fixed soon
-                if (lastView.stateId == "checkOut") { $state.go('tab.checkOut', {}, { location: "replace", reload: true }); } else {
-                    $state.go('tab.profile', {}, { location: "replace", reload: true });
-                }
-
-
-
-
-            }).error(function() {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Login failed!',
-                    template: 'Please check your credentials!'
-                });
-            });
-    };
-
-})
+    })
 
 .controller('signupCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory) {
 
@@ -426,6 +426,36 @@ angular.module('app.controllers', ['app.profiles'])
 
 /** FB */
 .controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
+
+
+
+
+    openFB.api({
+
+        path: '/me',
+        params: { fields: 'id,name' },
+        success: function(user) {
+            $scope.$apply(function() {
+                // initial state is visible
+
+
+                $scope.user = user;
+                console.log(user.id)
+                console.log(user.name)
+                localStorage.setItem('authenticated', 1);
+
+
+            });
+        },
+        error: function(error) {
+
+
+            alert('Error connecting to Facebook. Did you log in?');
+            localStorage.setItem('authenticated', 0);
+
+
+        }
+    });
 
     $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
     $scope.loggedin_id = sessionStorage.getItem('loggedin_id');

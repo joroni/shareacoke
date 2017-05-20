@@ -8,7 +8,7 @@
     <author email="niconi@coca-cola.com" href="http://coca-cola.com/">
       John Raymund Niconi
     </author>
-     <icon src="www/res/icon.png" />
+    <icon src="www/res/icon.png" />
     <splash src="www/res/splash.png" />
     <content src="index.html" />
     <access origin="*" />
@@ -29,4 +29,5 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
 </widget>

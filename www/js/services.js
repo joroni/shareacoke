@@ -63,12 +63,6 @@ angular.module('app.services', [])
     cartObj.total_amount = 0;
     cartObj.total_qty = 0;
 
-
-
-
-
-
-
     cartObj.cart.add = function(id, image, name, price, qty) {
         if (cartObj.cart.find(id) != -1) {
             var alertPopup = $ionicPopup.alert({

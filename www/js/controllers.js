@@ -1,16 +1,11 @@
-angular.module('app.controllers', ['app.services', 'ngOpenFB'])
+angular.module('app.controllers', ['app.profiles'])
 
 
 
-.controller('DashCtrls', function($scope) {
 
+.controller('DashCtrls', function($scope) {})
 
-
-})
-
-.controller('BrandCtrls', function($scope) {
-
-})
+.controller('BrandCtrls', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
     // With the new view caching in Ionic, Controllers are only called
@@ -104,11 +99,11 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
     //show brand page
     $scope.showProductInfo = function(id, desc, img, name, price) {
-        localStorage.setItem('product_info_id', id);
-        localStorage.setItem('product_info_desc', desc);
-        localStorage.setItem('product_info_img', img);
-        localStorage.setItem('product_info_name', name);
-        localStorage.setItem('product_info_price', price);
+        sessionStorage.setItem('product_info_id', id);
+        sessionStorage.setItem('product_info_desc', desc);
+        sessionStorage.setItem('product_info_img', img);
+        sessionStorage.setItem('product_info_name', name);
+        sessionStorage.setItem('product_info_price', price);
         window.location.href = "#/tab/productpage";
     };
 
@@ -165,12 +160,12 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
 .controller('checkOutCtrl', function($scope) {
     $scope.loggedin = function() {
-        if (localStorage.getItem('loggedin_id') == null) { return 1; } else {
-            $scope.loggedin_name = localStorage.getItem('loggedin_name');
-            $scope.loggedin_id = localStorage.getItem('loggedin_id');
-            $scope.loggedin_phone = localStorage.getItem('loggedin_phone');
-            $scope.loggedin_address = localStorage.getItem('loggedin_address');
-            $scope.loggedin_pincode = localStorage.getItem('loggedin_pincode');
+        if (sessionStorage.getItem('loggedin_id') == null) { return 1; } else {
+            $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
+            $scope.loggedin_id = sessionStorage.getItem('loggedin_id');
+            $scope.loggedin_phone = sessionStorage.getItem('loggedin_phone');
+            $scope.loggedin_address = sessionStorage.getItem('loggedin_address');
+            $scope.loggedin_pincode = sessionStorage.getItem('loggedin_pincode');
             return 0;
         }
     };
@@ -179,29 +174,125 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
 })
 
-
-
-
 .controller('indexCtrl', function($scope, sharedCartService) {
     //$scope.total = 10; 
 })
 
-.controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout, ngFB) {
+
+
+.config(function($stateProvider, FB_APP_ID) {
+
+    openFB.init({ appId: FB_APP_ID });
+
+
+})
+
+.controller('ProfileFBCtrl', function($scope) {
+
+
+    openFB.api({
+
+        path: '/me',
+        params: { fields: 'id,name' },
+        success: function(user) {
+            $scope.$apply(function() {
+                // initial state is visible
+
+
+                $scope.user = user;
+                console.log(user.id)
+                console.log(user.name)
+                localStorage.setItem('authenticated', 1);
+
+
+            });
+        },
+        error: function(error) {
+
+
+            alert('Error connecting to Facebook. Did you log in?');
+            localStorage.setItem('authenticated', 0);
+
+
+        }
+    });
+
+})
+
+
+
+.controller('loginCtrl', function($scope, $http, $ionicPopup, $state, $ionicHistory, $ionicModal, $timeout) {
     $scope.user = {};
 
 
+
+
+    // Form data for the login modal
+    $scope.loginData = {};
+
+    // Create the login modal that we will use later FB ****************
+    $ionicModal.fromTemplateUrl('templates/tab-login.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    // Triggered in the login modal to close it
+    $scope.closeLogin = function() {
+            $scope.modal.hide();
+        },
+
+        // Open the login modal
+        $scope.login = function() {
+            $scope.modal.show();
+        };
+
+    // Perform the login action when the user submits the login form
+    $scope.doLogin = function() {
+        console.log('Login', $scope.loginData);
+        alert("Only the Facebook login is implemented in this sample app.");
+        $scope.closeLogin();
+    };
+
+
+
+
+    $scope.fbLogout = function() {
+        openFB.logout(function(response) {
+            // user is now logged out
+            localStorage.setItem('authenticated', 0);
+            alert('You are now logged out.');
+
+        })
+    }
+
     $scope.fbLogin = function() {
-        console.log('Facebook login started');
-        ngFB.login({ scope: 'email,read_stream,publish_actions' }).then(
+        openFB.login(
             function(response) {
                 if (response.status === 'connected') {
                     console.log('Facebook login succeeded');
+                    localStorage.setItem('authenticated', 1);
                     $scope.closeLogin();
+                    $state.go('tab.fbprofile');
+                    // window.location.href = "#/tab/fbprofile";
                 } else {
                     alert('Facebook login failed');
+                    localStorage.setItem('authenticated', 0);
+
+
+
                 }
-            });
+
+
+            }, { scope: 'email,publish_actions' });
+
+
     }
+
+    /* FB **************** */
+
+
+
 
 
     $scope.login = function() {
@@ -211,17 +302,17 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
         $http.get(str)
             .success(function(response) {
                 $scope.user_details = response.records;
+                sessionStorage.setItem('loggedin_name', $scope.user_details.u_name);
+                sessionStorage.setItem('loggedin_id', $scope.user_details.u_id);
+                sessionStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
+                sessionStorage.setItem('loggedin_address', $scope.user_details.u_address);
+                sessionStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+                /** custom */
                 localStorage.setItem('loggedin_name', $scope.user_details.u_name);
                 localStorage.setItem('loggedin_id', $scope.user_details.u_id);
                 localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
                 localStorage.setItem('loggedin_address', $scope.user_details.u_address);
                 localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
-                /** custom */
-                /* localStorage.setItem('loggedin_name', $scope.user_details.u_name);
-                 localStorage.setItem('loggedin_id', $scope.user_details.u_id);
-                 localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
-                 localStorage.setItem('loggedin_address', $scope.user_details.u_address);
-                 localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);*/
                 /** custom */
 
                 $ionicHistory.nextViewOptions({
@@ -231,15 +322,9 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
                 lastView = $ionicHistory.backView();
                 console.log('Last View', lastView);
                 //BUG to be fixed soon
-                if (lastView.stateId == "checkOut") {
-                    $state.go('tab.checkOut', {}, { location: "replace", reload: true });
-                } else {
+                if (lastView.stateId == "checkOut") { $state.go('tab.checkOut', {}, { location: "replace", reload: true }); } else {
                     $state.go('tab.profile', {}, { location: "replace", reload: true });
-
-                    window.location.href = "#/tab/profile";
                 }
-
-
 
 
 
@@ -335,40 +420,36 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
 })
 
-.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state, ngFB) {
-    ngFB.api({
-        path: '/me',
-        params: { fields: 'id,name' }
-    }).then(
-        function(user) {
-            $scope.user = user;
-        },
-        function(error) {
-            alert('Facebook error: ' + error.error_description);
-        });
-    $scope.loggedin_name = localStorage.getItem('loggedin_name');
-    $scope.loggedin_id = localStorage.getItem('loggedin_id');
-    $scope.loggedin_phone = localStorage.getItem('loggedin_phone');
-    $scope.loggedin_address = localStorage.getItem('loggedin_address');
-    $scope.loggedin_pincode = localStorage.getItem('loggedin_pincode');
+
+
+
+
+/** FB */
+.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
+
+    $scope.loggedin_name = sessionStorage.getItem('loggedin_name');
+    $scope.loggedin_id = sessionStorage.getItem('loggedin_id');
+    $scope.loggedin_phone = sessionStorage.getItem('loggedin_phone');
+    $scope.loggedin_address = sessionStorage.getItem('loggedin_address');
+    $scope.loggedin_pincode = sessionStorage.getItem('loggedin_pincode');
 
 
     $scope.logout = function() {
+        delete sessionStorage.loggedin_name;
+        delete sessionStorage.loggedin_id;
+        delete sessionStorage.loggedin_phone;
+        delete sessionStorage.loggedin_address;
+        delete sessionStorage.loggedin_pincode;
+
+        /*** added */
         delete localStorage.loggedin_name;
         delete localStorage.loggedin_id;
         delete localStorage.loggedin_phone;
         delete localStorage.loggedin_address;
         delete localStorage.loggedin_pincode;
-
-        /*** added */
-        /* delete localStorage.loggedin_name;
-         delete localStorage.loggedin_id;
-         delete localStorage.loggedin_phone;
-         delete localStorage.loggedin_address;
-         delete localStorage.loggedin_pincode;*/
         /*** added */
 
-        console.log('Logoutctrl', localStorage.getItem('loggedin_id'));
+        console.log('Logoutctrl', sessionStorage.getItem('loggedin_id'));
 
         $ionicHistory.nextViewOptions({
             disableAnimate: true,
@@ -394,15 +475,18 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
     //onload event
     angular.element(document).ready(function() {
-        $scope.id = localStorage.getItem('product_info_id');
-        $scope.desc = localStorage.getItem('product_info_desc');
-        $scope.img = base_url + "/img/rewards/" + localStorage.getItem('product_info_img') + ".jpg";
-        $scope.name = localStorage.getItem('product_info_name');
-        $scope.price = localStorage.getItem('product_info_price');
+        $scope.id = sessionStorage.getItem('product_info_id');
+        $scope.desc = sessionStorage.getItem('product_info_desc');
+        $scope.img = base_url + "/img/rewards/" + sessionStorage.getItem('product_info_img') + ".jpg";
+        $scope.name = sessionStorage.getItem('product_info_name');
+        $scope.price = sessionStorage.getItem('product_info_price');
     });
 
 
 })
+
+
+
 
 
 
@@ -416,18 +500,6 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
     //put cart after menu
     var cart2 = sharedCartService2.cart2;
-
-
-
-    var LoginCtrl = localStorage.getItem('loggedin_id');
-    //  console.log('LoginCtrl', LoginCtrl);
-    if (LoginCtrl != "") {
-        console.log('LoginCtrl', LoginCtrl);
-        //$state.go('tab.profile', {}, { location: "replace", reload: true });
-    } else {
-        console.log('LoginCtrl', 'None');
-        // $state.go('tab.login', {}, { location: "replace", reload: true });
-    }
 
 
 
@@ -490,12 +562,12 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
     //show brand page
     $scope.showBrandInfo = function(id, flavor, img, name, cate, ean) {
-        localStorage.setItem('brand_info_id', id);
-        localStorage.setItem('brand_info_name', name);
-        localStorage.setItem('brand_info_cate', cate);
-        localStorage.setItem('brand_info_flavor', flavor);
-        localStorage.setItem('brand_info_img', img);
-        localStorage.setItem('brand_info_ean', ean);
+        sessionStorage.setItem('brand_info_id', id);
+        sessionStorage.setItem('brand_info_name', name);
+        sessionStorage.setItem('brand_info_cate', cate);
+        sessionStorage.setItem('brand_info_flavor', flavor);
+        sessionStorage.setItem('brand_info_img', img);
+        sessionStorage.setItem('brand_info_ean', ean);
         window.location.href = "#/tab/brandpage";
     };
 
@@ -510,12 +582,12 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
     //onload event
     angular.element(document).ready(function() {
-        $scope.id = localStorage.getItem('brand_info_id');
-        $scope.name = localStorage.getItem('brand_info_name');
-        $scope.cate = localStorage.getItem('brand_info_cate');
-        $scope.flavor = localStorage.getItem('brand_info_flavor');
-        $scope.img = base_url + "/img/brands/" + localStorage.getItem('brand_info_img') + ".png";
-        $scope.ean = localStorage.getItem('brand_info_ean');
+        $scope.id = sessionStorage.getItem('brand_info_id');
+        $scope.name = sessionStorage.getItem('brand_info_name');
+        $scope.cate = sessionStorage.getItem('brand_info_cate');
+        $scope.flavor = sessionStorage.getItem('brand_info_flavor');
+        $scope.img = base_url + "/img/brands/" + sessionStorage.getItem('brand_info_img') + ".png";
+        $scope.ean = sessionStorage.getItem('brand_info_ean');
     });
 
 
@@ -544,9 +616,6 @@ angular.module('app.controllers', ['app.services', 'ngOpenFB'])
 
 
 })
-
-
-
 
 .controller('sortByBrandCtrl', function($scope, sharedFilterService2) {
     $scope.sort = function(sort_by) {

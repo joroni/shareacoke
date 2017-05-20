@@ -5099,7 +5099,6 @@ a.subdued:last-child {
     background-color: red;
     background-image: linear-gradient(0deg, #0c60ee, #0c60ee 50%, transparent 50%);
     color: #fff;
-    width: : 100%;
 }
 
 .bar.bar-positive .title {
@@ -11572,7 +11571,6 @@ progress {
     border-color: transparent;
     background-color: red;
     color: #fff;
-    width: 100%;
 }
 
 .button.button-positive:hover {
@@ -12030,23 +12028,6 @@ a.button.icon-right:before {
  * Button Bar
  * --------------------------------------------------
  */
-
-.button-bar-padding {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -moz-box-flex: 1;
-    -moz-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-}
 
 .button-bar {
     display: -webkit-box;
@@ -13308,14 +13289,4 @@ h2.ng-binding {
 .button-yellow {
     color: #FFD700;
     background-color: transparent;
-}
-
-.button.button-fb {
-    border-color: #145fd7;
-    background-color: #4a87ee;
-    color: #fff;
-}
-
-p.ng-binding {
-    text-transform: capitalize;
 }

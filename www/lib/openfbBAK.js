@@ -8,10 +8,9 @@
  * @version 0.4
  */
 var openFB = (function() {
-    //var baseURL = localStorage.getItem('baseURL')
+    var baseURL = localStorage.getItem('baseURL')
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
-        baseURLCustom = 'http://localhost:3000',
 
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,
@@ -23,14 +22,12 @@ var openFB = (function() {
         context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
 
 
-        baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+        //  baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+        baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side' + context,
 
+        oauthRedirectURL = baseURL + '/oauthcallback.html',
 
-        //   baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side' + context,
-
-        oauthRedirectURL = baseURLCustom + '/oauthcallback.html',
-
-        logoutRedirectURL = baseURLCustom + '/logoutcallback.html',
+        logoutRedirectURL = baseURL + '/logoutcallback.html',
 
         // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
         // inside the module instead of keeping it local within the login function.

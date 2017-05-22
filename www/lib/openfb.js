@@ -8,7 +8,7 @@
  * @version 0.4
  */
 var openFB = (function() {
-    // var baseURL = localStorage.getItem('baseURL')
+    var baseURL = localStorage.getItem('baseURL')
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
 
@@ -22,8 +22,7 @@ var openFB = (function() {
         context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
 
 
-        // baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
-
+        //  baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
         baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side',
 
         oauthRedirectURL = baseURL + '/oauthcallback.html',
@@ -40,8 +39,8 @@ var openFB = (function() {
         // Used in the exit event handler to identify if the login has already been processed elsewhere (in the oauthCallback function)
         loginProcessed;
 
-    console.log(oauthRedirectURL);
-    console.log(logoutRedirectURL);
+    console.log('oauthRedirectURL', oauthRedirectURL);
+    console.log('logoutRedirectURL', logoutRedirectURL);
 
     document.addEventListener("deviceready", function() {
         runningInCordova = true;

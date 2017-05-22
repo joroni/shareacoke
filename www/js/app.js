@@ -1,15 +1,11 @@
-var base_url = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side";
-//var base_url = "http://localhost/ionic_shopping/server_side";
-//var base_url = "http://maong.local/ionic_shopping/server_side";
-var baseURL = base_url;
-var fallbackSrc = 'img/no-image.png';
-// Ionic Starter App
-
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+var base_url = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side"
+var fallbackSrc = 'img/no-image.png'
+localStorage.setItem('baseURL', base_url)
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.profiles'])
 
 .run(function($ionicPlatform) {

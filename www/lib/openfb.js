@@ -8,7 +8,7 @@
  * @version 0.4
  */
 var openFB = (function() {
-    var baseURL = localStorage.getItem('baseURL')
+    // var baseURL = localStorage.getItem('baseURL')
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
 
@@ -22,7 +22,9 @@ var openFB = (function() {
         context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
 
 
-        baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+        // baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+
+        baseURL = 'ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side',
 
         oauthRedirectURL = baseURL + '/oauthcallback.html',
 

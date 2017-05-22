@@ -305,7 +305,7 @@ angular.module('app.controllers', ['app.profiles'])
 
     $scope.signup = function(data) {
 
-        str = base_url + '/' + 'signup.php';
+        var link = base_url + '/' + 'signup.php';
         $http.post(link, { n: data.name, un: data.username, ps: data.password, ph: data.phone, add: data.address, pin: data.pincode })
             .then(function(res) {
                 $scope.response = res.data.result;
@@ -321,7 +321,7 @@ angular.module('app.controllers', ['app.profiles'])
                         disableAnimate: true,
                         disableBack: true
                     });
-                    $state.go('tab.signup', {}, { location: "replace", reload: true });
+                    $state.go('tab.login', {}, { location: "replace", reload: true });
 
                 } else if ($scope.response.exists == "1") {
                     $scope.title = "Email Already exists";
@@ -386,10 +386,8 @@ angular.module('app.controllers', ['app.profiles'])
 
 
 
-/** FB */
+/********************* FB *******************/
 .controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
-
-
 
 
     openFB.api({
@@ -411,9 +409,9 @@ angular.module('app.controllers', ['app.profiles'])
 
                 localStorage.setItem('loggedin_name', $scope.user.name);
                 localStorage.setItem('loggedin_id', $scope.user.email);
-                localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
-                localStorage.setItem('loggedin_address', $scope.user_details.u_address);
-                localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+                localStorage.setItem('loggedin_phone', $scope.user.u_phone);
+                localStorage.setItem('loggedin_address', $scope.user.u_address);
+                localStorage.setItem('loggedin_pincode', $scope.user.u_pincode);
 
 
             });
@@ -421,7 +419,7 @@ angular.module('app.controllers', ['app.profiles'])
         error: function(error) {
 
 
-            alert('Error connecting to Facebook. Did you log in?');
+            alert('No connection to Facebook. Did you log in?');
             localStorage.setItem('authenticated', 0);
 
 
@@ -475,7 +473,7 @@ angular.module('app.controllers', ['app.profiles'])
 
 })
 
-
+/********************* FB *******************/
 
 
 .controller('myOrdersCtrl', function($scope) {

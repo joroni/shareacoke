@@ -67,7 +67,7 @@ angular.module('app.services', [])
         if (cartObj.cart.find(id) != -1) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Product Already Added',
-                template: 'Increase the qty from the cart'
+                template: 'Increase the qty from the basket'
             });
             //cartObj.cart[cartObj.cart.find(id)].cart_item_qty+=1;
             //cartObj.total_qty+= 1;	
@@ -203,7 +203,7 @@ angular.module('app.services', [])
         if (cartObj.cart.find(id) != -1) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Product Already Added',
-                template: 'Increase the qty from the cart'
+                template: 'Increase the qty from the basket'
             });
             //cartObj.cart[cartObj.cart.find(id)].cart_item_qty+=1;
             //cartObj.total_qty+= 1;	

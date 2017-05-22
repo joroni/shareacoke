@@ -133,12 +133,14 @@ angular.module('app.routes', [])
         })
 
 
+    /*
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'templates/signup.html',
+            controller: 'signupCtrl'
+        })
 
-
-
-
-
-
+    */
 
     .state('tab.signup', {
         url: '/signup',
@@ -159,7 +161,7 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        if (sessionStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
+                        if (sessionStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login-form'); }
                     }
                 }
             }
@@ -267,7 +269,7 @@ angular.module('app.routes', [])
     .state('tab.payment', {
         url: '/payment',
         views: {
-            'tab-cart': {
+            'tab-dash': {
                 templateUrl: 'templates/payment.html',
                 controller: 'paymentCtrl'
             }

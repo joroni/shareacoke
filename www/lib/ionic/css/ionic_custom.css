@@ -13290,3 +13290,13 @@ h2.ng-binding {
     color: #FFD700;
     background-color: transparent;
 }
+
+.button-fb {
+    border-color: #2d5073;
+    background-color: #3b5998;
+    color: #FFF;
+}
+
+.button-bar-padding {
+    padding: 10px;
+}

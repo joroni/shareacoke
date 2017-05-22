@@ -5,13 +5,15 @@
   
         My Coke App Project 03
     </description>
-    <author email="niconi@coca-cola.com" href="http://coca-cola.com/">
+    <author email="niconi@coca-cola.com" href="http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side">
       John Raymund Niconi
     </author>
     <icon src="www/res/icon.png" />
     <splash src="www/res/splash.png" />
     <content src="index.html" />
     <access origin="*" />
+     <access origin="http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side" />
+    
     <preference name="Orientation" value="portrait" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />

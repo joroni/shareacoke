@@ -23,7 +23,7 @@ var openFB = (function() {
 
 
         //  baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
-        baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side',
+        baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side' + context,
 
         oauthRedirectURL = baseURL + '/oauthcallback.html',
 

@@ -7,7 +7,7 @@ angular.module('app.config', [])
 .constant('FB_APP_ID', '214220945743446')
     //.constant('FB_APP_ID', '222541638244710') TEST
 
-.constant('SERVER_PATH', 'https://ec2-54-214-99-121.us-west-2.compute.amazonaws.com');
+.constant('SERVER_PATH', 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80');
 //.constant('SERVER_PATH', 'http://127.0.0.1:8000');
 //    .constant('SERVER_PATH','http://ioconf.herokuapp.com');
 

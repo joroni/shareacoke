@@ -4,7 +4,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var base_url = "https://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80/iknow/server_side"
+var base_url = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80/iknow/server_side"
 var fallbackSrc = 'img/no-image.png'
     //localStorage.setItem('baseURL', base_url)
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.profiles'])

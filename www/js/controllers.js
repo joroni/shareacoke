@@ -405,7 +405,7 @@ angular.module('app.controllers', ['app.profiles'])
     openFB.api({
 
         path: '/me',
-        params: { fields: 'id,name,email' },
+        params: { fields: 'id,name,email,about' },
         success: function(user) {
             $scope.$apply(function() {
                 // initial state is visible
@@ -415,13 +415,15 @@ angular.module('app.controllers', ['app.profiles'])
                 console.log(user.id)
                 console.log(user.name)
                 console.log(user.email)
+                console.log(user.about)
+
 
 
                 localStorage.setItem('authenticated', 1);
 
                 localStorage.setItem('loggedin_name', $scope.user.name);
                 localStorage.setItem('loggedin_id', $scope.user.email);
-                localStorage.setItem('loggedin_phone', $scope.user.u_phone);
+                //    localStorage.setItem('loggedin_user_about_me', $scope.user.user_about_me);
                 localStorage.setItem('loggedin_address', $scope.user.u_address);
                 localStorage.setItem('loggedin_pincode', $scope.user.u_pincode);
 

@@ -236,6 +236,8 @@ angular.module('app.controllers', ['app.profiles'])
                         disableAnimate: true,
                         disableBack: true
                     });
+
+
                     // window.location.href = "#/tab/fbprofile";
                 } else {
                     alert('Facebook login failed');
@@ -275,6 +277,7 @@ angular.module('app.controllers', ['app.profiles'])
                 localStorage.setItem('loggedin_phone', $scope.user_details.u_phone);
                 localStorage.setItem('loggedin_address', $scope.user_details.u_address);
                 localStorage.setItem('loggedin_pincode', $scope.user_details.u_pincode);
+
                 /** custom */
 
                 $ionicHistory.nextViewOptions({
@@ -287,6 +290,7 @@ angular.module('app.controllers', ['app.profiles'])
                 if (lastView.stateId == "checkOut") { $state.go('tab.checkOut', {}, { location: "replace", reload: true }); } else {
                     $state.go('tab.profile', {}, { location: "replace", reload: true });
                 }
+
 
 
 
@@ -446,6 +450,7 @@ angular.module('app.controllers', ['app.profiles'])
         delete localStorage.loggedin_phone;
         delete localStorage.loggedin_address;
         delete localStorage.loggedin_pincode;
+
         /*** added */
 
         console.log('Logoutctrl', localStorage.getItem('loggedin_id'));
@@ -635,9 +640,9 @@ angular.module('app.controllers', ['app.profiles'])
 })
 
 .controller('sortByBrandCtrl', function($scope, sharedFilterService2) {
-    $scope.sort = function(sort_by) {
-        sharedFilterService2.sort = sort_by;
-        console.log('sort', sort_by);
+    $scope.sort = function(sort_bybrand) {
+        sharedFilterService2.sort = sort_bybrand;
+        console.log('sort', sort_bybrand);
         window.location.href = "#/tab/brands";
     };
 })

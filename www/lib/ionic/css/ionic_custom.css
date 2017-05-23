@@ -13300,3 +13300,19 @@ h2.ng-binding {
 .button-bar-padding {
     padding: 10px;
 }
+
+.item-avatar,
+.item-avatar .item-content,
+.item-avatar-medium img,
+.item-avatar-medium img .item-content {
+    margin: 0 auto;
+    max-height: 120px;
+    border-radius: 50%;
+}
+
+.item-avatar,
+.item-avatar .item-content,
+.item-avatar-medium,
+.item-avatar-medium .item-content {
+    text-align: center;
+}

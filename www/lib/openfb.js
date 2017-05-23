@@ -183,9 +183,6 @@ var openFB = (function() {
      * IMPORTANT: For the Facebook logout to work, the logoutRedirectURL must be on the domain specified in "Site URL" in your Facebook App Settings
      *
      */
-
-
-
     function logout(callback) {
         var logoutWindow,
             token = tokenStore['fbtoken'];
@@ -199,7 +196,6 @@ var openFB = (function() {
         delete localStorage.loggedin_address;
         delete localStorage.loggedin_pincode;
 
-
         if (token) {
             logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=no');
             if (runningInCordova) {
@@ -207,10 +203,6 @@ var openFB = (function() {
                     logoutWindow.close();
                 }, 700);
             }
-            console.log('Logoutctrl', localStorage.getItem('loggedin_id'));
-
-
-            $state.go('tab.login', {}, { location: "replace", reload: true });
         }
 
         if (callback) {

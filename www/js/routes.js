@@ -198,20 +198,6 @@ angular.module('app.routes', [])
     })
 
 
-
-    .state('tab.fbprofile2', {
-        url: '/fbprofile2',
-        views: {
-            'tab-login': {
-                templateUrl: 'templates/tab-facebook.html',
-                controller: 'loginFBCtrl'
-            }
-        }
-
-
-    })
-
-
     .state('tab.favorites', {
         url: '/favorites',
         views: {

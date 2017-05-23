@@ -12,10 +12,10 @@ var openFB = (function() {
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
         baseURLCustom = 'http://localhost:3000',
-
+        // baseURLCustom = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80/iknow/server_side",
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,
-
+        //http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side/oauthcallback.html?#access_token=EAADC1TNf3lYBABkLFJys29pRfu1WCiLGH2ubYtoZCIS6Q2NnA2CqX12dhZCTTgMxYrYXrs1oJQMEBgsoneMQtnqE6ZCuSvFZAbZAWvbtjpAlLFnpGCkx59x5U4MN3kwctYAV6tOjffTuO0GDGW8dD7cIqwx9rrmyVI7z0Kmon43aZAZC16Thzx9zIQaUQ0IefEZD&expires_in=6552
         tokenStore = window.localStorage,
 
         fbAppId,
@@ -183,12 +183,22 @@ var openFB = (function() {
      * IMPORTANT: For the Facebook logout to work, the logoutRedirectURL must be on the domain specified in "Site URL" in your Facebook App Settings
      *
      */
+
+
+
     function logout(callback) {
         var logoutWindow,
             token = tokenStore['fbtoken'];
 
         /* Remove token. Will fail silently if does not exist */
         tokenStore.removeItem('fbtoken');
+
+        delete localStorage.loggedin_name;
+        delete localStorage.loggedin_id;
+        delete localStorage.loggedin_phone;
+        delete localStorage.loggedin_address;
+        delete localStorage.loggedin_pincode;
+
 
         if (token) {
             logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=no');
@@ -197,6 +207,10 @@ var openFB = (function() {
                     logoutWindow.close();
                 }, 700);
             }
+            console.log('Logoutctrl', localStorage.getItem('loggedin_id'));
+
+
+            $state.go('tab.login', {}, { location: "replace", reload: true });
         }
 
         if (callback) {

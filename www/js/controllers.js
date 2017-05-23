@@ -216,7 +216,11 @@ angular.module('app.controllers', ['app.profiles'])
     // Perform the login action when the user submits the login form
     $scope.doLogin = function() {
         console.log('Login', $scope.loginData);
-        alert("Only the Facebook login is implemented in this sample app.");
+        //alert("Only the Facebook login is implemented in this sample app.");
+        var alertPopup = $ionicPopup.alert({
+            title: 'No item in your Cart',
+            template: 'Only the Facebook login is implemented in this sample app.'
+        });
         $scope.closeLogin();
     };
 
@@ -240,7 +244,11 @@ angular.module('app.controllers', ['app.profiles'])
 
                     // window.location.href = "#/tab/fbprofile";
                 } else {
-                    alert('Facebook login failed');
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Ooooops!',
+                        template: 'Facebook login failed'
+                    });
+                    // alert('Facebook login failed');
                     localStorage.setItem('authenticated', 0);
 
 
@@ -391,7 +399,7 @@ angular.module('app.controllers', ['app.profiles'])
 
 
 /********************* FB *******************/
-.controller('profileCtrl', function($scope, $rootScope, $ionicHistory, $state) {
+.controller('profileCtrl', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state) {
 
 
     openFB.api({
@@ -423,7 +431,11 @@ angular.module('app.controllers', ['app.profiles'])
         error: function(error) {
 
 
-            alert('No connection to Facebook. Did you log in?');
+            //alert('No connection to Facebook. Did you log in?');
+            var alertPopup = $ionicPopup.alert({
+                title: 'No connection to Facebook',
+                template: ' Did you log in?'
+            });
             localStorage.setItem('authenticated', 0);
 
 
@@ -467,7 +479,12 @@ angular.module('app.controllers', ['app.profiles'])
         openFB.logout(function(response) {
             // user is now logged out
             localStorage.setItem('authenticated', 0);
-            alert('You are now logged out.');
+
+            var alertPopup = $ionicPopup.alert({
+                title: 'Alert!',
+                template: 'You are now logged out.'
+            });
+            // alert('You are now logged out.');
             $state.go('tab.login', {}, { location: "replace", reload: true });
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
@@ -647,7 +664,7 @@ angular.module('app.controllers', ['app.profiles'])
     };
 })
 
-.controller('paymentCtrl', function($scope) {
+.controller('paymentCtrl', function($scope, $ionicPopup) {
     $scope.payProcess = function() {
         alert('Payment Connection Needed');
     };

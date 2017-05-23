@@ -161,7 +161,7 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        if (sessionStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login-form'); }
+                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login-form'); }
                     }
                 }
             }

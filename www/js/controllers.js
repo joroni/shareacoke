@@ -482,6 +482,19 @@ angular.module('app.controllers', ['app.profiles'])
             // user is now logged out
             localStorage.setItem('authenticated', 0);
 
+            delete sessionStorage.loggedin_name;
+            delete sessionStorage.loggedin_id;
+            delete sessionStorage.loggedin_phone;
+            delete sessionStorage.loggedin_address;
+            delete sessionStorage.loggedin_pincode;
+
+            /*** added */
+            delete localStorage.loggedin_name;
+            delete localStorage.loggedin_id;
+            delete localStorage.loggedin_phone;
+            delete localStorage.loggedin_address;
+            delete localStorage.loggedin_pincode;
+
             var alertPopup = $ionicPopup.alert({
                 title: 'Alert!',
                 template: 'You are now logged out.'

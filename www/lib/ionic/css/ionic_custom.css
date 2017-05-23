@@ -13301,8 +13301,6 @@ h2.ng-binding {
     padding: 10px;
 }
 
-.item-avatar,
-.item-avatar .item-content,
 .item-avatar-medium img,
 .item-avatar-medium img .item-content {
     margin: 0 auto;
@@ -13310,8 +13308,6 @@ h2.ng-binding {
     border-radius: 50%;
 }
 
-.item-avatar,
-.item-avatar .item-content,
 .item-avatar-medium,
 .item-avatar-medium .item-content {
     text-align: center;

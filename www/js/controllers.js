@@ -227,7 +227,7 @@ angular.module('app.controllers', ['app.profiles'])
 
 
 
-
+    /* FB  START **************** */
     $scope.fbLogin = function() {
         openFB.login(
             function(response) {
@@ -242,26 +242,35 @@ angular.module('app.controllers', ['app.profiles'])
                     });
 
 
-                    // window.location.href = "#/tab/fbprofile";
-                } else {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Ooooops!',
-                        template: 'Facebook login failed'
-                    });
-                    // alert('Facebook login failed');
-                    localStorage.setItem('authenticated', 0);
-
-
-
+                    window.location.href = "#/tab/fbprofile";
                 }
+                /*else {
+                                   var alertPopup = $ionicPopup.alert({
+                                       title: 'Ooooops!',
+                                       template: 'Facebook login failed'
+                                   });
+                                   // alert('Facebook login failed');
+                                   localStorage.setItem('authenticated', 0);
 
 
-            }, { scope: 'email,publish_actions' });
+
+                               }*/
+
+
+            }).error(function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Login failed!',
+                template: 'Please check your credentials!'
+            });
+            // });
+            localStorage.setItem('authenticated', 0);
+
+        }, { scope: 'email,publish_actions' });
 
 
     }
 
-    /* FB **************** */
+    /* FB  END **************** */
 
 
 
@@ -398,8 +407,8 @@ angular.module('app.controllers', ['app.profiles'])
 
 
 
-/********************* FB *******************/
-.controller('profileCtrl', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state) {
+/********************* FB START *******************/
+.controller('profileFBCtrl', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state) {
 
 
     openFB.api({
@@ -439,6 +448,11 @@ angular.module('app.controllers', ['app.profiles'])
             });
 
 
+            $scope.loggedin_name = localStorage.getItem('loggedin_name');
+            $scope.loggedin_id = localStorage.getItem('loggedin_id');
+            $scope.loggedin_phone = localStorage.getItem('loggedin_phone');
+            $scope.loggedin_address = localStorage.getItem('loggedin_address');
+            $scope.loggedin_pincode = localStorage.getItem('loggedin_pincode');
 
         },
         error: function(error) {
@@ -453,7 +467,60 @@ angular.module('app.controllers', ['app.profiles'])
 
 
         }
+
+
     });
+
+
+
+
+
+
+    $scope.fbLogout = function() {
+        openFB.logout();
+        /* openFB.logout(function(response) {
+             // user is now logged out
+             localStorage.setItem('authenticated', 0);
+
+             delete sessionStorage.loggedin_name;
+             delete sessionStorage.loggedin_id;
+             delete sessionStorage.loggedin_phone;
+             delete sessionStorage.loggedin_address;
+             delete sessionStorage.loggedin_pincode;
+
+             /*** added 
+             delete localStorage.loggedin_name;
+             delete localStorage.loggedin_id;
+             delete localStorage.loggedin_phone;
+             delete localStorage.loggedin_address;
+             delete localStorage.loggedin_pincode;
+
+             var alertPopup = $ionicPopup.alert({
+                 title: 'Alert!',
+                 template: 'You are now logged out.'
+             });
+             // alert('You are now logged out.');
+             $state.go('tab.login', {}, { location: "replace", reload: true });
+             $ionicHistory.nextViewOptions({
+                 disableAnimate: true,
+                 disableBack: true
+             });
+         })*/
+    }
+
+})
+
+/********************* FB END *******************/
+
+
+
+
+
+
+/********************* EMAIL START *******************/
+.controller('profileCtrl', function($scope, $rootScope, $ionicPopup, $ionicHistory, $state) {
+
+
 
     $scope.loggedin_name = localStorage.getItem('loggedin_name');
     $scope.loggedin_id = localStorage.getItem('loggedin_id');
@@ -488,40 +555,11 @@ angular.module('app.controllers', ['app.profiles'])
     };
 
 
-    $scope.fbLogout = function() {
-        openFB.logout(function(response) {
-            // user is now logged out
-            localStorage.setItem('authenticated', 0);
 
-            delete sessionStorage.loggedin_name;
-            delete sessionStorage.loggedin_id;
-            delete sessionStorage.loggedin_phone;
-            delete sessionStorage.loggedin_address;
-            delete sessionStorage.loggedin_pincode;
-
-            /*** added */
-            delete localStorage.loggedin_name;
-            delete localStorage.loggedin_id;
-            delete localStorage.loggedin_phone;
-            delete localStorage.loggedin_address;
-            delete localStorage.loggedin_pincode;
-
-            var alertPopup = $ionicPopup.alert({
-                title: 'Alert!',
-                template: 'You are now logged out.'
-            });
-            // alert('You are now logged out.');
-            $state.go('tab.login', {}, { location: "replace", reload: true });
-            $ionicHistory.nextViewOptions({
-                disableAnimate: true,
-                disableBack: true
-            });
-        })
-    }
 
 })
 
-/********************* FB *******************/
+/********************* EMAIL END *******************/
 
 
 .controller('myOrdersCtrl', function($scope) {

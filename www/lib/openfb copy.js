@@ -7,23 +7,30 @@
  * @author Christophe Coenraets @ccoenraets
  * @version 0.4
  */
-var openFB = (function($state, $ionicPopup) {
-
+var openFB = (function() {
+    //var baseURL = localStorage.getItem('baseURL')
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
-
+        baseURLCustom = 'http://localhost:3000',
+        // baseURLCustom = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80/iknow/server_side",
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,
+        //http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side/oauthcallback.html?#access_token=EAADC1TNf3lYBABkLFJys29pRfu1WCiLGH2ubYtoZCIS6Q2NnA2CqX12dhZCTTgMxYrYXrs1oJQMEBgsoneMQtnqE6ZCuSvFZAbZAWvbtjpAlLFnpGCkx59x5U4MN3kwctYAV6tOjffTuO0GDGW8dD7cIqwx9rrmyVI7z0Kmon43aZAZC16Thzx9zIQaUQ0IefEZD&expires_in=6552
+        tokenStore = window.localStorage,
 
         fbAppId,
 
         context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
 
+
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
 
-        oauthRedirectURL = baseURL + '/oauthcallback.html',
 
-        logoutRedirectURL = baseURL + '/logoutcallback.html',
+        //   baseURL = 'http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com/iknow/server_side' + context,
+
+        oauthRedirectURL = baseURLCustom + '/oauthcallback.html',
+
+        logoutRedirectURL = baseURLCustom + '/logoutcallback.html',
 
         // Because the OAuth login spans multiple processes, we need to keep the login callback function as a variable
         // inside the module instead of keeping it local within the login function.
@@ -35,8 +42,8 @@ var openFB = (function($state, $ionicPopup) {
         // Used in the exit event handler to identify if the login has already been processed elsewhere (in the oauthCallback function)
         loginProcessed;
 
-    console.log(oauthRedirectURL);
-    console.log(logoutRedirectURL);
+    console.log('oauthRedirectURL', oauthRedirectURL);
+    console.log('logoutRedirectURL', logoutRedirectURL);
 
     document.addEventListener("deviceready", function() {
         runningInCordova = true;
@@ -95,7 +102,7 @@ var openFB = (function($state, $ionicPopup) {
         if (!fbAppId) {
             return callback({ status: 'unknown', error: 'Facebook App Id not set.' });
         }
-        getLoginStatus(callback);
+
         // Inappbrowser load start handler: Used when running in Cordova only
         function loginWindow_loadStartHandler(event) {
             var url = event.url;
@@ -183,8 +190,14 @@ var openFB = (function($state, $ionicPopup) {
         /* Remove token. Will fail silently if does not exist */
         tokenStore.removeItem('fbtoken');
 
+        delete localStorage.loggedin_name;
+        delete localStorage.loggedin_id;
+        delete localStorage.loggedin_phone;
+        delete localStorage.loggedin_address;
+        delete localStorage.loggedin_pincode;
+
         if (token) {
-            logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=yes');
+            logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=no');
             if (runningInCordova) {
                 setTimeout(function() {
                     logoutWindow.close();
@@ -196,31 +209,6 @@ var openFB = (function($state, $ionicPopup) {
             callback();
         }
 
-        localStorage.setItem('authenticated', 0);
-
-
-        delete sessionStorage.loggedin_name;
-        delete sessionStorage.loggedin_id;
-        delete sessionStorage.loggedin_phone;
-        delete sessionStorage.loggedin_address;
-        delete sessionStorage.loggedin_pincode;
-
-        /*** added */
-        delete localStorage.loggedin_name;
-        delete localStorage.loggedin_id;
-        delete localStorage.loggedin_phone;
-        delete localStorage.loggedin_address;
-        delete localStorage.loggedin_pincode;
-
-        /*   var alertPopup = $ionicPopup.alert({
-               title: 'Alert!',
-               template: 'You are now logged out.'
-           });*/
-        console.log('Logged out');
-        console.log(callback);
-
-        window.location.href = "#/tab/login";
-        $state.go('tab.login', {}, { location: "replace", reload: true });
     }
 
     /**

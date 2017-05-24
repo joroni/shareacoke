@@ -205,7 +205,7 @@ angular.module('app.routes', [])
         views: {
             'tab-login': {
                 templateUrl: 'templates/tab-fbprofile.html',
-                controller: 'profileCtrl'
+                controller: 'profileFBCtrl'
             }
         }
 

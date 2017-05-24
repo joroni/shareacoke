@@ -11,7 +11,7 @@ var openFB = (function($state, $ionicPopup) {
 
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
-
+        baseURLCustom = 'http://localhost:3000',
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,
 
@@ -20,6 +20,10 @@ var openFB = (function($state, $ionicPopup) {
         context = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2)),
 
         baseURL = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + context,
+
+        oauthRedirectURL = baseURLCustom + '/oauthcallback.html',
+
+        logoutRedirectURL = baseURLCustom + '/logoutcallback.html',
 
         oauthRedirectURL = baseURL + '/oauthcallback.html',
 

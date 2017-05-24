@@ -161,7 +161,20 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login-form'); }
+                        var authenticatedUser = localStorage.getItem('authenticated');
+                        if (localStorage.getItem('loggedin_id')) {
+                            $location.path('#/tab/profile');
+                        } else {
+                            $location.path('#/tab/login-form');
+
+                        }
+                        if (authenticatedUser != 0) {
+                            $location.path('#/tab/fbprofile');
+                        } else {
+                            $location.path('#/tab/login-form');
+
+                        }
+
                     }
                 }
             }
@@ -180,6 +193,7 @@ angular.module('app.routes', [])
             'tab-login': {
                 templateUrl: 'templates/tab-profile.html',
                 controller: 'profileCtrl'
+
             }
         }
 

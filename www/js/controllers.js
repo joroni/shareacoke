@@ -405,7 +405,7 @@ angular.module('app.controllers', ['app.profiles'])
     openFB.api({
 
         path: '/me',
-        params: { fields: 'id,name,email,about' },
+        params: { fields: 'id,name,email' },
         success: function(user) {
             $scope.$apply(function() {
                 // initial state is visible
@@ -415,8 +415,6 @@ angular.module('app.controllers', ['app.profiles'])
                 console.log(user.id)
                 console.log(user.name)
                 console.log(user.email)
-                console.log(user.about)
-
 
 
                 localStorage.setItem('authenticated', 1);
@@ -427,8 +425,21 @@ angular.module('app.controllers', ['app.profiles'])
                 localStorage.setItem('loggedin_address', $scope.user.u_address);
                 localStorage.setItem('loggedin_pincode', $scope.user.u_pincode);
 
+                var userFBaddress = $scope.user.u_address;
+                var userFBpincode = $scope.user.u_pincode;
+                if ($scope.user.u_address == 'undefined') {
+                    $scope.user.u_address = '...';
+                }
+                if ($scope.user.u_pincode == 'undefined') {
+                    $scope.user.u_pincode = '...';
+
+                }
+
 
             });
+
+
+
         },
         error: function(error) {
 

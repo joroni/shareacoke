@@ -10224,7 +10224,8 @@ textarea {
     display: table;
     padding: 7px 10px 7px 0px;
     max-width: 200px;
-    width: 35%;
+    /* width: 35%;*/
+    width: 25%;
     color: #d10000;
     font-size: 16px;
 }

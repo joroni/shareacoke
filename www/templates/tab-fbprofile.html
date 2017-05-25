@@ -49,6 +49,16 @@
             <button class="button button-block button-border icon-left ion-social-facebook button-fb" ng-click="fbLogout()">Logout with Facebook</button>
 
         </div>
+
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
+
+        <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
+
+        <div id="status">
+        </div>
+
+
     </ion-content>
 
 

@@ -11,6 +11,8 @@ var openFB = (function($state, $ionicPopup) {
 
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
+        //FB_LOGOUT_URL = 'https://www.facebook.com/logout.php?access_token=EAADC1TNf3lYBAKkK7Qqv32wua9ZCmbJIt783ZCGHPZAP6bIP7pLY3N1JNP0lt0FRALZCPm3qXh2hnlMkXbrLaOAImZBuEbkjjIhPGjb4Da7QrqeLIEAtSIAoKiHR8SJ52Xm8E0rG7DaIclmbtaotM4GT0wlMa4wcbuTcmsCZC7N3U7qXZB8sHkHNUxuw6tLOw8ZD&next=http://localhost:3000/logoutcallback.html',
+
         baseURLCustom = 'http://localhost:3000',
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,
@@ -180,6 +182,18 @@ var openFB = (function($state, $ionicPopup) {
      * IMPORTANT: For the Facebook logout to work, the logoutRedirectURL must be on the domain specified in "Site URL" in your Facebook App Settings
      *
      */
+    function deleteAllCookies() {
+        var cookies = document.cookie.split(";");
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            var eqPos = cookie.indexOf("=");
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+    }
+    deleteAllCookies();
+
     function logout(callback) {
         var logoutWindow,
             token = tokenStore['fbtoken'];
@@ -189,6 +203,10 @@ var openFB = (function($state, $ionicPopup) {
 
         if (token) {
             logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token + '&next=' + logoutRedirectURL, '_blank', 'location=yes');
+            //logoutWindow = window.open(FB_LOGOUT_URL + '?access_token=' + token, '_blank', 'location=yes');
+
+
+
             if (runningInCordova) {
                 setTimeout(function() {
                     logoutWindow.close();

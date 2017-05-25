@@ -224,7 +224,9 @@ angular.module('app.controllers', ['app.profiles'])
         $scope.closeLogin();
     };
 
-
+    $scope.fbLogin2 = function() {
+        window.open('http://104.238.96.209:8080/testfb.html', '_blank', 'location=no');
+    }
 
 
     /* FB  START **************** */
@@ -477,35 +479,35 @@ angular.module('app.controllers', ['app.profiles'])
 
 
     $scope.fbLogout = function() {
-        openFB.logout();
-        /* openFB.logout(function(response) {
-             // user is now logged out
-             localStorage.setItem('authenticated', 0);
 
-             delete sessionStorage.loggedin_name;
-             delete sessionStorage.loggedin_id;
-             delete sessionStorage.loggedin_phone;
-             delete sessionStorage.loggedin_address;
-             delete sessionStorage.loggedin_pincode;
+        openFB.logout(function(response) {
+            // user is now logged out
+            localStorage.setItem('authenticated', 0);
 
-             /*** added 
-             delete localStorage.loggedin_name;
-             delete localStorage.loggedin_id;
-             delete localStorage.loggedin_phone;
-             delete localStorage.loggedin_address;
-             delete localStorage.loggedin_pincode;
+            delete sessionStorage.loggedin_name;
+            delete sessionStorage.loggedin_id;
+            delete sessionStorage.loggedin_phone;
+            delete sessionStorage.loggedin_address;
+            delete sessionStorage.loggedin_pincode;
 
-             var alertPopup = $ionicPopup.alert({
-                 title: 'Alert!',
-                 template: 'You are now logged out.'
-             });
-             // alert('You are now logged out.');
-             $state.go('tab.login', {}, { location: "replace", reload: true });
-             $ionicHistory.nextViewOptions({
-                 disableAnimate: true,
-                 disableBack: true
-             });
-         })*/
+            /*** added **/
+            delete localStorage.loggedin_name;
+            delete localStorage.loggedin_id;
+            delete localStorage.loggedin_phone;
+            delete localStorage.loggedin_address;
+            delete localStorage.loggedin_pincode;
+
+            var alertPopup = $ionicPopup.alert({
+                title: 'Alert!',
+                template: 'You are now logged out.'
+            });
+            // alert('You are now logged out.');
+            $state.go('tab.login', {}, { location: "replace", reload: true });
+            $ionicHistory.nextViewOptions({
+                disableAnimate: true,
+                disableBack: true
+            });
+        })
     }
 
 })

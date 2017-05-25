@@ -241,8 +241,8 @@ var openFB = (function($state, $ionicPopup) {
         console.log('Logged out');
         console.log(callback);
 
-        window.location.href = "#/tab/login";
-        $state.go('tab.login', {}, { location: "replace", reload: true });
+        // window.location.href = "#/tab/login";
+        // $state.go('tab.login', {}, { location: "replace", reload: true });
     }
 
     /**

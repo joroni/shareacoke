@@ -224,9 +224,6 @@ angular.module('app.controllers', ['app.profiles'])
         $scope.closeLogin();
     };
 
-    $scope.fbLogin2 = function() {
-        window.open('http://104.238.96.209:8080/testfb.html', '_blank', 'location=no');
-    }
 
 
     /* FB  START **************** */
@@ -475,12 +472,17 @@ angular.module('app.controllers', ['app.profiles'])
 
 
 
+    $scope.FBlogout2 = function() {
+        document.location.reload();
+    }
 
 
 
     $scope.fbLogout = function() {
-
         openFB.logout(function(response) {
+
+            // openFB.Auth.setAuthResponse(null, 'unknown');
+
             // user is now logged out
             localStorage.setItem('authenticated', 0);
 
@@ -497,16 +499,19 @@ angular.module('app.controllers', ['app.profiles'])
             delete localStorage.loggedin_address;
             delete localStorage.loggedin_pincode;
 
-            var alertPopup = $ionicPopup.alert({
-                title: 'Alert!',
-                template: 'You are now logged out.'
-            });
+
             // alert('You are now logged out.');
             $state.go('tab.login', {}, { location: "replace", reload: true });
             $ionicHistory.nextViewOptions({
                 disableAnimate: true,
                 disableBack: true
             });
+
+            var alertPopup = $ionicPopup.alert({
+                title: 'Alert!',
+                template: 'You are now logged out.'
+            });
+            document.location.reload();
         })
     }
 

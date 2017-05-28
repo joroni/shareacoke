@@ -38,23 +38,24 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        var LoginCtrl = localStorage.getItem('loggedin_id');
+                        /*   var LoginCtrl = localStorage.getItem('loggedin_id');
                         //  console.log('LoginCtrl', LoginCtrl);
                         if (LoginCtrl != null) {
                             console.log('LoginCtrl', LoginCtrl);
-                            //$location.path('#/tab/profile');
+                            //  $location.path('#/tab/profile');
                             window.location.href = "#/tab/profile";
-                            // $state.go('tab.profile', {}, { location: "replace", reload: false });
+                            $state.go('tab.profile', {}, { location: "replace", reload: false });
                         } else {
                             console.log('LoginCtrl', 'None');
                             //  $state.go('tab.login', {}, { location: "replace", reload: true });
-                            //  $location.path('#/tab/login');
+                            $location.path('#/tab/login');
+                            $state.go('tab.profile', {}, { location: "replace", reload: false });
                             window.location.href = "#/tab/login";
                         }
+*/
 
 
-
-                        //   if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
+                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
                     }
                 }
             }
@@ -161,19 +162,22 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        var authenticatedUser = localStorage.getItem('authenticated');
+                        /*         var authenticatedUser = localStorage.getItem('authenticated');
                         if (localStorage.getItem('loggedin_id')) {
                             $location.path('#/tab/profile');
-                        } else {
-                            $location.path('#/tab/login-form');
-
-                        }
-                        if (authenticatedUser != 0) {
+                            $state.go('tab.profile', {}, { location: "replace", reload: false });
+                        } else if (authenticatedUser != 0) {
                             $location.path('#/tab/fbprofile');
+
+                            $state.go('tab.fbprofile', {}, { location: "replace", reload: false });
                         } else {
                             $location.path('#/tab/login-form');
+                            $state.go('tab.login-form', {}, { location: "replace", reload: false });
 
                         }
+
+*/
+                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
 
                     }
                 }

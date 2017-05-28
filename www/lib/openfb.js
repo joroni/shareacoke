@@ -12,7 +12,8 @@ var openFB = (function($state, $ionicPopup) {
     var FB_LOGIN_URL = 'https://www.facebook.com/dialog/oauth',
         FB_LOGOUT_URL = 'https://www.facebook.com/logout.php',
         //FB_LOGOUT_URL = 'https://www.facebook.com/logout.php?access_token=EAADC1TNf3lYBAKkK7Qqv32wua9ZCmbJIt783ZCGHPZAP6bIP7pLY3N1JNP0lt0FRALZCPm3qXh2hnlMkXbrLaOAImZBuEbkjjIhPGjb4Da7QrqeLIEAtSIAoKiHR8SJ52Xm8E0rG7DaIclmbtaotM4GT0wlMa4wcbuTcmsCZC7N3U7qXZB8sHkHNUxuw6tLOw8ZD&next=http://localhost:3000/logoutcallback.html',
-
+        // baseURLCustom = 'https://teams.coca-cola.com/sites/SDCManila/CokeApps/Shared%20Documents/fb',
+        //baseURLCustom = localStorage.getItem('base_root'),
         baseURLCustom = 'http://localhost:3000',
         // By default we store fbtoken in sessionStorage. This can be overridden in init()
         tokenStore = window.sessionStorage,

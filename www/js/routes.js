@@ -159,10 +159,11 @@ angular.module('app.routes', [])
         views: {
             'tab-login': {
                 templateUrl: 'templates/tab-login.html',
-                controller: 'loginCtrl',
+                controller: 'loginCtrl'
+                    /* ,
                 resolve: {
                     "check": function($location) {
-                        /*         var authenticatedUser = localStorage.getItem('authenticated');
+                               var authenticatedUser = localStorage.getItem('authenticated');
                         if (localStorage.getItem('loggedin_id')) {
                             $location.path('#/tab/profile');
                             $state.go('tab.profile', {}, { location: "replace", reload: false });
@@ -176,11 +177,11 @@ angular.module('app.routes', [])
 
                         }
 
-*/
                         if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
 
                     }
-                }
+
+                }*/
             }
 
 

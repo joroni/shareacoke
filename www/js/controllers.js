@@ -174,6 +174,11 @@ angular.module('app.controllers', ['app.profiles'])
 
 })
 
+
+
+
+
+
 .controller('indexCtrl', function($scope, sharedCartService) {
     //$scope.total = 10; 
 })
@@ -262,7 +267,7 @@ angular.module('app.controllers', ['app.profiles'])
                 template: 'Please check your credentials!'
             });
             // });
-            localStorage.setItem('authenticated', 0);
+            delete localStorage.authenticated;
 
         }, { scope: 'email,publish_actions' });
 
@@ -462,7 +467,7 @@ angular.module('app.controllers', ['app.profiles'])
                 title: 'No connection to Facebook',
                 template: ' Did you log in?'
             });
-            localStorage.setItem('authenticated', 0);
+            delete localStorage.authenticated;
 
 
         }
@@ -484,7 +489,7 @@ angular.module('app.controllers', ['app.profiles'])
             // openFB.Auth.setAuthResponse(null, 'unknown');
 
             // user is now logged out
-            localStorage.setItem('authenticated', 0);
+            delete localStorage.authenticated;
 
             delete sessionStorage.loggedin_name;
             delete sessionStorage.loggedin_id;

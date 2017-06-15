@@ -1,7 +1,7 @@
 angular.module('app.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider) {
-
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
     // Set up the various states which the app can be in.
@@ -38,24 +38,23 @@ angular.module('app.routes', [])
                 controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                        /*   var LoginCtrl = localStorage.getItem('loggedin_id');
+                        var LoginCtrl = localStorage.getItem('loggedin_id');
                         //  console.log('LoginCtrl', LoginCtrl);
                         if (LoginCtrl != null) {
                             console.log('LoginCtrl', LoginCtrl);
-                            //  $location.path('#/tab/profile');
+                            //$location.path('#/tab/profile');
                             window.location.href = "#/tab/profile";
-                            $state.go('tab.profile', {}, { location: "replace", reload: false });
+                            // $state.go('tab.profile', {}, { location: "replace", reload: false });
                         } else {
                             console.log('LoginCtrl', 'None');
                             //  $state.go('tab.login', {}, { location: "replace", reload: true });
-                            $location.path('#/tab/login');
-                            $state.go('tab.profile', {}, { location: "replace", reload: false });
+                            //  $location.path('#/tab/login');
                             window.location.href = "#/tab/login";
                         }
-*/
 
 
-                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
+
+                        //   if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
                     }
                 }
             }
@@ -105,16 +104,26 @@ angular.module('app.routes', [])
 
 
     .state('tab.snap', {
-            url: '/snap',
-            views: {
-                'tab-snap': {
-                    templateUrl: 'templates/tab-snap.html'
-                        //controller: 'checkOutCtrl'
-                }
+        url: '/snap',
+        views: {
+            'tab-snap': {
+                templateUrl: 'templates/tab-snap.html',
+                controller: 'arCtrl'
             }
+        }
 
-        })
-        .state('tab.chats', {
+    })
+
+    .state('tab.ar', {
+        url: '/ar',
+
+        templateUrl: 'templates/ar.html',
+        controller: 'arCtrl2'
+
+
+    })
+
+    .state('tab.chats', {
             url: '/chats',
             views: {
                 'tab-chats': {
@@ -159,29 +168,16 @@ angular.module('app.routes', [])
         views: {
             'tab-login': {
                 templateUrl: 'templates/tab-login.html',
-                controller: 'loginCtrl'
-                    /* ,
+                controller: 'loginCtrl',
                 resolve: {
                     "check": function($location) {
-                               var authenticatedUser = localStorage.getItem('authenticated');
-                        if (localStorage.getItem('loggedin_id')) {
+                        if (sessionStorage.getItem('loggedin_id')) {
                             $location.path('#/tab/profile');
-                            $state.go('tab.profile', {}, { location: "replace", reload: false });
-                        } else if (authenticatedUser != 0) {
+                        } else if (sessionStorage.getItem('authenticated')) {
                             $location.path('#/tab/fbprofile');
-
-                            $state.go('tab.fbprofile', {}, { location: "replace", reload: false });
-                        } else {
-                            $location.path('#/tab/login-form');
-                            $state.go('tab.login-form', {}, { location: "replace", reload: false });
-
-                        }
-
-                        if (localStorage.getItem('loggedin_id')) { $location.path('#/tab/profile'); } else { $location.path('#/tab/login'); }
-
+                        } else { $location.path('#/tab/login-form'); }
                     }
-
-                }*/
+                }
             }
 
 
@@ -198,7 +194,6 @@ angular.module('app.routes', [])
             'tab-login': {
                 templateUrl: 'templates/tab-profile.html',
                 controller: 'profileCtrl'
-
             }
         }
 
@@ -210,9 +205,23 @@ angular.module('app.routes', [])
         views: {
             'tab-login': {
                 templateUrl: 'templates/tab-fbprofile.html',
-                controller: 'profileFBCtrl'
+                controller: 'profileCtrl'
             }
         }
+
+    })
+
+
+
+    .state('tab.fbprofile2', {
+        url: '/fbprofile2',
+        views: {
+            'tab-login': {
+                templateUrl: 'templates/tab-facebook.html',
+                controller: 'loginFBCtrl'
+            }
+        }
+
 
     })
 
@@ -376,6 +385,8 @@ angular.module('app.routes', [])
         }
 
     });
+
+
 
     /** branding */
     // if none of the above states are matched, use this as the fallback

@@ -4,52 +4,26 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <div class="list card">
+            <div class="itemSS">
+                <ion-item class="item-avatar-left user-photo">
+
+                    <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" ng-if="user.id">
+                    <h2>{{user.name}}</h2>
+                </ion-item>
 
 
-            <ion-item class="item-divider hide">Details</ion-item>
-
-            <ion-item class="item-avatar-medium user-photo">
-
-                <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270" ng-if="user.id">
-
-            </ion-item>
-            <label class="item item-input">
-                <span class="input-label">Name</span>
-				<textarea placeholder="" readonly> {{" "+user.name}}</textarea>
-            </label>
-
-            <label class="item item-input">
-                <span class="input-label">Email</span>
-				<textarea placeholder="" readonly>{{" "+user.email}} </textarea>
-            </label>
-
-            <!--   <label class="item item-input">
-                <span class="input-label">Phone</span>
-				<textarea placeholder="" readonly > {{" "+loggedin_phone}}</textarea>
-            </label>
--->
-
-            <label class="item item-input">
-                <span class="input-label">Address</span>
-				<textarea placeholder="" readonly > {{" "+loggedin_address}}</textarea>
-            </label>
-
-            <label class="item item-input">
-                <span class="input-label">Pincode</span>
-                <textarea placeholder="" readonly type="password"> {{" "+loggedin_pincode}}</textarea>
-            </label>
+            </div>
+            <div class="itemSS item-body">
+                <p>{{user.name}}</p>
+            </div>
 
 
-
-
-
-            <!-- <a href="#" class="fb-login-button button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" ng-click="fbLogout()">Logout</a>-->
         </div>
         <div class="button-bar-padding social-login">
-            <button class="button button-block button-border icon-left ion-social-facebook button-fb" ng-click="fbLogout()">Logout with Facebook</button>
+            <a href="#" class="fb-login-button button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" ng-click="fbLogout()">Logout</a>
+            <!--  <button class="button button-block button-border icon-left ion-social-facebook button-fb" ng-click="fbLogout2()">Logout with Facebook</button>-->
 
         </div>
-        <!--  <a href="#" onclick="javascript:FB.logout(function() { window.location='http://ec2-54-186-121-116.us-west-2.compute.amazonaws.com/iknow/server_side/logoutcallback.html' }); return false;">Logout</a>-->
     </ion-content>
 
 

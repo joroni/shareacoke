@@ -3,22 +3,14 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var server_location = "http://ec2-54-186-121-116.us-west-2.compute.amazonaws.com/iknow/server_side";
-localStorage.setItem('base_root', server_location);
-var base_url = localStorage.getItem('base_root');
-var fallbackSrc = 'img/no-image.png';
-
-//var base_url = https://teams.coca-cola.com/sites/SDCManila/CokeApps/Shared%20Documents/fb
+var base_url = "http://ec2-54-186-121-116.us-west-2.compute.amazonaws.com/iknow/server_side";
 //var base_url = "http://ec2-54-214-99-121.us-west-2.compute.amazonaws.com:80/iknow/server_side"
-//var base_url = "http://localhost/ionic_shopping/server_side"
-
-//localStorage.setItem('baseURL', base_url)
+var fallbackSrc = 'img/no-image.png'
+    //localStorage.setItem('baseURL', base_url)
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'app.profiles'])
 
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-
-
+.run(function($ionicPlatform, $http) {
+    $ionicPlatform.ready(function($http) {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
         if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -31,8 +23,13 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             StatusBar.styleDefault();
         }
 
+
+
     });
+
 })
+
+
 
 
 angular.module('app.profiles', ['app.config'])
